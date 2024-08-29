@@ -3,13 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header Fragment -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/headerFragmentContainer"
+    <!-- Header -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:name="com.example.dispatcher.HeaderFragment" />
+        android:id="@+id/headerFragmentContainer"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="21dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/splash_logo" />
+
+        <!-- Bell Icon (Rightmost Icon) -->
+        <ImageView
+            android:id="@+id/bellIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bell" />
+
+        <!-- Search Icon (To the Left of Bell Icon) -->
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toLeftOf="@id/bellIcon"
+            android:layout_marginStart="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/search" />
+
+        </RelativeLayout>
+
 
     <!-- Tabs Layout -->
     <LinearLayout
@@ -19,7 +55,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="#262146">
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/tab_profile"
