@@ -1,35 +1,54 @@
 package com.example.dispatcher
 
 import android.os.Bundle
-import android.widget.ImageView
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.dispatcher.databinding.ActivityMainBinding
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val homeTab: ImageView = findViewById(R.id.tab_home)
-        val favoritesTab: ImageView = findViewById(R.id.tab_favorites)
-        val profileTab: ImageView = findViewById(R.id.tab_profile)
+        // Initialize View Binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        if (BuildConfig.DEBUG) {
+            Log.d("Environment", "Running in Development Mode")
+        } else {
+            Log.d("Environment", "Running in Production Mode")
+        }
+
+        // Log the current Firebase app's project ID
+        val firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val firebaseProjectId = firebaseAnalytics.appInstanceId
+        Log.d("Firebase", "Connected to Firebase project: $firebaseProjectId")
+
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
 
         // Set the initial fragment and tab image
         replaceFragment(HomeFragment())
         updateTabImages(selectedTab = R.id.tab_home)
 
-        homeTab.setOnClickListener {
+        // Set up tab click listeners
+        binding.tabHome.setOnClickListener {
             replaceFragment(HomeFragment())
             updateTabImages(selectedTab = R.id.tab_home)
         }
 
-        favoritesTab.setOnClickListener {
+        binding.tabFavorites.setOnClickListener {
             replaceFragment(FavoritesFragment())
             updateTabImages(selectedTab = R.id.tab_favorites)
         }
 
-        profileTab.setOnClickListener {
+        binding.tabProfile.setOnClickListener {
             replaceFragment(ProfileFragment())
             updateTabImages(selectedTab = R.id.tab_profile)
         }
@@ -43,26 +62,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTabImages(selectedTab: Int) {
-        val homeTab: ImageView = findViewById(R.id.tab_home)
-        val favoritesTab: ImageView = findViewById(R.id.tab_favorites)
-        val profileTab: ImageView = findViewById(R.id.tab_profile)
-
         when (selectedTab) {
             R.id.tab_home -> {
-                homeTab.setImageResource(R.drawable.home_clicked)
-                favoritesTab.setImageResource(R.drawable.star)
-                profileTab.setImageResource(R.drawable.profile)
+                binding.tabHome.setImageResource(R.drawable.home_clicked)
+                binding.tabFavorites.setImageResource(R.drawable.star)
+                binding.tabProfile.setImageResource(R.drawable.profile)
             }
             R.id.tab_favorites -> {
-                homeTab.setImageResource(R.drawable.home)
-                favoritesTab.setImageResource(R.drawable.star_clicked)
-                profileTab.setImageResource(R.drawable.profile)
+                binding.tabHome.setImageResource(R.drawable.home)
+                binding.tabFavorites.setImageResource(R.drawable.star_clicked)
+                binding.tabProfile.setImageResource(R.drawable.profile)
             }
             R.id.tab_profile -> {
-                homeTab.setImageResource(R.drawable.home)
-                favoritesTab.setImageResource(R.drawable.star)
-                profileTab.setImageResource(R.drawable.profile_clicked)
+                binding.tabHome.setImageResource(R.drawable.home)
+                binding.tabFavorites.setImageResource(R.drawable.star)
+                binding.tabProfile.setImageResource(R.drawable.profile_clicked)
             }
         }
+    }
+
+    fun forceCrash(view: View) {
+        throw RuntimeException("This is a test crash") // Force a crash
     }
 }
