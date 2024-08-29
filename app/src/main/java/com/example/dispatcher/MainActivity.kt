@@ -2,7 +2,6 @@ package com.example.dispatcher
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.databinding.ActivityMainBinding
@@ -35,22 +34,22 @@ class MainActivity : AppCompatActivity() {
 
         // Set the initial fragment and tab image
         replaceFragment(HomeFragment())
-        updateTabImages(selectedTab = R.id.tab_home)
+        selectTab(R.id.tab_home)
 
         // Set up tab click listeners
         binding.tabHome.setOnClickListener {
             replaceFragment(HomeFragment())
-            updateTabImages(selectedTab = R.id.tab_home)
+            selectTab(R.id.tab_home)
         }
 
         binding.tabFavorites.setOnClickListener {
             replaceFragment(FavoritesFragment())
-            updateTabImages(selectedTab = R.id.tab_favorites)
+            selectTab(R.id.tab_favorites)
         }
 
         binding.tabProfile.setOnClickListener {
             replaceFragment(ProfileFragment())
-            updateTabImages(selectedTab = R.id.tab_profile)
+            selectTab(R.id.tab_profile)
         }
     }
 
@@ -61,27 +60,10 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    private fun updateTabImages(selectedTab: Int) {
-        when (selectedTab) {
-            R.id.tab_home -> {
-                binding.tabHome.setImageResource(R.drawable.home_clicked)
-                binding.tabFavorites.setImageResource(R.drawable.star)
-                binding.tabProfile.setImageResource(R.drawable.profile)
-            }
-            R.id.tab_favorites -> {
-                binding.tabHome.setImageResource(R.drawable.home)
-                binding.tabFavorites.setImageResource(R.drawable.star_clicked)
-                binding.tabProfile.setImageResource(R.drawable.profile)
-            }
-            R.id.tab_profile -> {
-                binding.tabHome.setImageResource(R.drawable.home)
-                binding.tabFavorites.setImageResource(R.drawable.star)
-                binding.tabProfile.setImageResource(R.drawable.profile_clicked)
-            }
-        }
+    private fun selectTab(selectedTabId: Int) {
+        binding.tabHome.isSelected = selectedTabId == R.id.tab_home
+        binding.tabFavorites.isSelected = selectedTabId == R.id.tab_favorites
+        binding.tabProfile.isSelected = selectedTabId == R.id.tab_profile
     }
 
-    fun forceCrash(view: View) {
-        throw RuntimeException("This is a test crash") // Force a crash
-    }
 }

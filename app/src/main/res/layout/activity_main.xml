@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="16dp"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/selector_profile"/>
 
         <ImageView
             android:id="@+id/tab_home"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="16dp"
-            android:src="@drawable/home_clicked"/>
+            android:src="@drawable/selector_home"/>
 
         <ImageView
             android:id="@+id/tab_favorites"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="16dp"
-            android:src="@drawable/star"/>
+            android:src="@drawable/selector_favorites"/>
 
     </LinearLayout>
 
