@@ -20,12 +20,11 @@ class SplashActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // Delay for 3 seconds
         Handler().postDelayed({
             // Start MainActivity
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
             finish() // Close the SplashActivity
-        }, 3000) // 3000 milliseconds = 3 seconds
+        }, 3000)
     }
 }

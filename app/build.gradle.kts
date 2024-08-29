@@ -60,7 +60,13 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
+
     implementation("androidx.compose.material:material:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.8.2")
+    implementation(libs.androidx.fragment)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

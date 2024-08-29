@@ -1,24 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <!-- Header Fragment -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/headerFragmentContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World"
-        android:textSize="24sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_alignParentTop="true"
+        android:name="com.example.dispatcher.HeaderFragment" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <!-- Tabs Layout -->
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click Me"
-        android:layout_below="@id/textView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#262146">
+
+        <ImageView
+            android:id="@+id/tab_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/profile"/>
+
+        <ImageView
+            android:id="@+id/tab_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/home_clicked"/>
+
+        <ImageView
+            android:id="@+id/tab_favorites"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/star"/>
+
+    </LinearLayout>
+
+    <!-- Selected Fragment -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerFragmentContainer"
+        android:layout_above="@id/tabsLayout"
+        android:layout_centerInParent="true"
+        android:name="com.example.dispatcher.HomeFragment" />
 
 </RelativeLayout>
