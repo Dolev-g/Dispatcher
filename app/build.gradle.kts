@@ -7,6 +7,10 @@ android {
     namespace = "com.example.dispatcher"
     compileSdk = 34
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.dispatcher"
         minSdk = 21

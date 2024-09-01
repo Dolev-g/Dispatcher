@@ -1,37 +1,40 @@
 package com.example.dispatcher
 
 import android.os.Bundle
-import android.widget.ImageView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.dispatcher.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val homeTab: ImageView = findViewById(R.id.tab_home)
-        val favoritesTab: ImageView = findViewById(R.id.tab_favorites)
-        val profileTab: ImageView = findViewById(R.id.tab_profile)
+        // Initialize View Binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Set the initial fragment and tab image
         replaceFragment(HomeFragment())
-        updateTabImages(selectedTab = R.id.tab_home)
+        selectTab(R.id.tab_home)
 
-        homeTab.setOnClickListener {
+        // Set up tab click listeners
+        binding.tabHome.setOnClickListener {
             replaceFragment(HomeFragment())
-            updateTabImages(selectedTab = R.id.tab_home)
+            selectTab(R.id.tab_home)
         }
 
-        favoritesTab.setOnClickListener {
+        binding.tabFavorites.setOnClickListener {
             replaceFragment(FavoritesFragment())
-            updateTabImages(selectedTab = R.id.tab_favorites)
+            selectTab(R.id.tab_favorites)
         }
 
-        profileTab.setOnClickListener {
+        binding.tabProfile.setOnClickListener {
             replaceFragment(ProfileFragment())
-            updateTabImages(selectedTab = R.id.tab_profile)
+            selectTab(R.id.tab_profile)
         }
     }
 
@@ -42,27 +45,10 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    private fun updateTabImages(selectedTab: Int) {
-        val homeTab: ImageView = findViewById(R.id.tab_home)
-        val favoritesTab: ImageView = findViewById(R.id.tab_favorites)
-        val profileTab: ImageView = findViewById(R.id.tab_profile)
-
-        when (selectedTab) {
-            R.id.tab_home -> {
-                homeTab.setImageResource(R.drawable.home_clicked)
-                favoritesTab.setImageResource(R.drawable.star)
-                profileTab.setImageResource(R.drawable.profile)
-            }
-            R.id.tab_favorites -> {
-                homeTab.setImageResource(R.drawable.home)
-                favoritesTab.setImageResource(R.drawable.star_clicked)
-                profileTab.setImageResource(R.drawable.profile)
-            }
-            R.id.tab_profile -> {
-                homeTab.setImageResource(R.drawable.home)
-                favoritesTab.setImageResource(R.drawable.star)
-                profileTab.setImageResource(R.drawable.profile_clicked)
-            }
-        }
+    private fun selectTab(selectedTabId: Int) {
+        binding.tabHome.isSelected = selectedTabId == R.id.tab_home
+        binding.tabFavorites.isSelected = selectedTabId == R.id.tab_favorites
+        binding.tabProfile.isSelected = selectedTabId == R.id.tab_profile
     }
+
 }
