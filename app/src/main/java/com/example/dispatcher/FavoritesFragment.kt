@@ -27,6 +27,8 @@ class FavoritesFragment : BaseFragment() {
         val titles = articleList.mapNotNull { it.title }.joinToString(separator = "\n")
 
         binding.textView.text = titles
+
+        displayToast("Favorites Fragment is active!")
     }
 
     override fun onDestroyView() {

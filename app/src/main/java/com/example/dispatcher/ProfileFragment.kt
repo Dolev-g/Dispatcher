@@ -27,6 +27,8 @@ class ProfileFragment : BaseFragment() {
         val titles = articleList.mapNotNull { it.author }.joinToString(separator = "\n")
 
         binding.textView.text = titles
+
+        displayToast("Profile Fragment is active!")
     }
 
     override fun onDestroyView() {

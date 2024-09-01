@@ -30,6 +30,8 @@ class HomeFragment : BaseFragment() {
 
         // Set the concatenated first two words to the TextView
         binding.textView.text = firstTwoWordsList
+
+        displayToast("Home Fragment is active!")
     }
 
     override fun onDestroyView() {
