@@ -28,10 +28,6 @@ android {
 
     buildTypes {
         debug {
-            isDebuggable = true  // Enable debugging features
-            applicationIdSuffix = ".dev"  // Adds ".dev" to the package name
-            versionNameSuffix = "-dev"  // Adds "-dev" to the version name
-            buildConfigField("String", "BASE_URL", "\"https://dev.example.com/api\"")  // Development API URL
             resValue("string", "app_name", "MyApp (Development)")
             firebaseCrashlytics {
                 mappingFileUploadEnabled = true  // Enable or disable mapping file uploads
@@ -44,7 +40,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"https://prod.example.com/api\"")  // Production API URL
             resValue("string", "app_name", "MyApp")
             signingConfig = signingConfigs.getByName("debug")// Production-specific app name
             firebaseCrashlytics {
