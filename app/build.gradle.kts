@@ -26,26 +26,39 @@ android {
         }
     }
 
-    buildTypes {
-        debug {
+    flavorDimensions.add("environment")
+
+    productFlavors {
+        create("development") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
             resValue("string", "app_name", "MyApp (Development)")
+        }
+
+        create("production") {
+            dimension = "environment"
+            applicationIdSuffix = ".prod"
+            resValue("string", "app_name", "MyApp")
+        }
+    }
+
+    buildTypes {
+        getByName("debug") {
+            isDebuggable = true
             firebaseCrashlytics {
-                mappingFileUploadEnabled = true  // Enable or disable mapping file uploads
+                mappingFileUploadEnabled = false
             }
         }
 
-        release {
+        getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            resValue("string", "app_name", "MyApp")
-            signingConfig = signingConfigs.getByName("debug")// Production-specific app name
+            signingConfig = signingConfigs.getByName("debug")
+
             firebaseCrashlytics {
-                // Enable or disable automatic data collection for Crashlytics
                 mappingFileUploadEnabled = true
             }
+
         }
     }
 
@@ -53,25 +66,26 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -85,7 +99,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
     implementation("com.google.firebase:firebase-analytics")
 
-
     implementation("androidx.compose.material:material:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     implementation(libs.androidx.fragment)
@@ -94,7 +107,6 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
     implementation(libs.play.services.measurement.api)
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

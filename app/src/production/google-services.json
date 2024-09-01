@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "739380193467",
-    "project_id": "dispatcher-prod-976be",
-    "storage_bucket": "dispatcher-prod-976be.appspot.com"
+    "project_number": "946901486210",
+    "project_id": "dispathcer-prod",
+    "storage_bucket": "dispathcer-prod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:739380193467:android:f4ecce3c5b2746cb7e619e",
+        "mobilesdk_app_id": "1:946901486210:android:21186af00afbc6ee55429b",
         "android_client_info": {
-          "package_name": "com.dispatcher"
+          "package_name": "com.dispatcher.prod"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCpICOx7TMPhpcN2J3yylFe24LDFHrtJuM"
+          "current_key": "AIzaSyCIYDtzXeVWUiOcG0DCwcqxYN7kt5pwCeQ"
         }
       ],
       "services": {
