@@ -1,24 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World"
-        android:textSize="24sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:id="@+id/headerFragmentContainer"
+        android:background="@color/colorPrimary">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="21dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/splash_logo" />
+
+        <!-- Bell Icon (Rightmost Icon) -->
+        <ImageView
+            android:id="@+id/bellIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bell" />
+
+        <!-- Search Icon (To the Left of Bell Icon) -->
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toLeftOf="@id/bellIcon"
+            android:layout_marginStart="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/search" />
+
+    </RelativeLayout>
+
+
+    <!-- Tabs Layout -->
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click Me"
-        android:layout_below="@id/textView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/tab_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/selector_profile"/>
+
+        <ImageView
+            android:id="@+id/tab_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/selector_home"/>
+
+        <ImageView
+            android:id="@+id/tab_favorites"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/selector_favorites"/>
+
+    </LinearLayout>
+
+    <!-- Selected Fragment -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerFragmentContainer"
+        android:layout_above="@id/tabsLayout"
+        android:layout_centerInParent="true"
+        android:name="com.example.dispatcher.HomeFragment" />
 
 </RelativeLayout>
