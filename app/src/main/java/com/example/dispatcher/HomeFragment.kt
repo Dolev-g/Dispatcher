@@ -4,32 +4,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.dispatcher.databinding.FragmentFavoritesBinding
+import android.widget.TextView
+import com.example.dispatcher.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment() {
 
-    private var _binding: FragmentFavoritesBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout using view binding
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Extract the first two words from each article's body and concatenate them
-        val firstTwoWordsList = articleList.mapNotNull { article ->
+        // Dynamically create and add a TextView for the first two words of each article's body
+        articleList.mapNotNull { article ->
             article.body?.split(" ")?.take(2)?.joinToString(" ")
-        }.joinToString(separator = "\n")
+        }.forEach { firstTwoWords ->
+            val textView = TextView(requireContext()).apply {
+                text = firstTwoWords
+                textSize = 18f
+                setTextColor(resources.getColor(android.R.color.black, null))
+            }
 
-        // Set the concatenated first two words to the TextView
-        binding.textView.text = firstTwoWordsList
+            binding.root.addView(textView)
+        }
 
         displayToast("Home Fragment is active!")
     }

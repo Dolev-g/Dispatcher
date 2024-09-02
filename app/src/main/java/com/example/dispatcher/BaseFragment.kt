@@ -3,46 +3,29 @@ package com.example.dispatcher
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.dispatcher.Article
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.InputStreamReader
 
 abstract class BaseFragment : Fragment() {
 
-    // ArrayList to hold Article objects
     protected val articleList: ArrayList<Article> = ArrayList()
 
-    // Function to initialize the articleList with three Article objects
     protected open fun initArticleList() {
-        // Creating three Article objects
-        val article1 = Article(
-            title = "First Article",
-            imageUrl = null, // Image URL is null as specified
-            author = "Author One",
-            body = "This is1 the body of the first article."
-        )
+        val jsonFileInputStream = resources.openRawResource(R.raw.articles)
+        val reader = InputStreamReader(jsonFileInputStream)
+        val articleType = object : TypeToken<ArrayList<Article>>() {}.type
+        val articlesFromJson: ArrayList<Article> = Gson().fromJson(reader, articleType)
 
-        val article2 = Article(
-            title = "Second Article",
-            imageUrl = null,
-            author = "Author Two",
-            body = "This is2 the body of the second article."
-        )
+        articleList.clear()
+        articleList.addAll(articlesFromJson)
 
-        val article3 = Article(
-            title = "Third Article",
-            imageUrl = null,
-            author = "Author Three",
-            body = "This is3 the body of the third article."
-        )
-
-        // Adding articles to the articleList
-        articleList.add(article1)
-        articleList.add(article2)
-        articleList.add(article3)
+        reader.close()
+        jsonFileInputStream.close()
     }
 
-    // Override onViewCreated to call initArticleList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initArticleList() // Initialize the article list when the view is created
+        initArticleList()
     }
 }

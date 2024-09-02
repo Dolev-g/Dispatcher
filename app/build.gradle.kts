@@ -102,6 +102,8 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     implementation(libs.androidx.fragment)
+    implementation("com.google.code.gson:gson:2.8.9")
+
 
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
     implementation("com.google.firebase:firebase-crashlytics")
