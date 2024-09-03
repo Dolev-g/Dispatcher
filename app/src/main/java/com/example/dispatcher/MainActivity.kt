@@ -17,15 +17,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("Environment", "BuildConfig.DEBUG: ${BuildConfig.DEBUG}")
-        Log.d("Environment", "BuildConfig.BUILD_TYPE: ${BuildConfig.BUILD_TYPE}")
-
-        if (BuildConfig.DEBUG) {
-            Log.d("Environment", "Running in Development Mode")
-        } else {
-            Log.d("Environment", "Running in Production Mode")
-        }
-
         // Initialize Firebase Crashlytics Manager
         FirebaseCrashlyticsManager.initialize(this)
 

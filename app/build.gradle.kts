@@ -38,7 +38,6 @@ android {
 
         create("production") {
             dimension = "environment"
-            applicationIdSuffix = ".prod"
             resValue("string", "app_name", "MyApp")
         }
     }
@@ -54,6 +53,9 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             signingConfig = signingConfigs.getByName("debug")
+
+            // Correct way to specify ProGuard files
+            proguardFiles("proguard-android-optimize.txt', 'proguard-rules.pro")
 
             firebaseCrashlytics {
                 mappingFileUploadEnabled = true
@@ -105,9 +107,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
 
 
-    implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
     implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.google.firebase:firebase-analytics")
     implementation(libs.play.services.measurement.api)
 
     testImplementation(libs.junit)
