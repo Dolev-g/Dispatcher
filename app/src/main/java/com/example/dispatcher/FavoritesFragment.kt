@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
+import com.example.dispatcher.model.Article
 import com.example.dispatcher.viewmodel.FavoritesViewModel
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
@@ -35,6 +36,13 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             // Set the text to the TextView
             binding.textViewFavoritesFragment.text = titles
         })
+
+        // Handle the Save button click
+        binding.buttonSaveTitle.setOnClickListener {
+            val title = binding.addTitleEditText.text.toString()
+            favoritesViewModel.addTitle(title)
+            binding.addTitleEditText.text.clear() // Clear the EditText after saving
+        }
 
     }
 

@@ -16,7 +16,7 @@ class ProfileFragment : Fragment(R.layout.fragment_favorites) {
     private val binding get() = _binding!!
 
     // Instantiate the ViewModel
-    private val favoritesViewModel: ProfileViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,10 +31,17 @@ class ProfileFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
 
         // Observe the LiveData from the ViewModel
-        favoritesViewModel.getAuthorsLiveData().observe(viewLifecycleOwner, Observer { titles ->
+        profileViewModel.getAuthorsLiveData().observe(viewLifecycleOwner, Observer { titles ->
             // Set the text to the TextView
             binding.textViewProfileFragment.text = titles
         })
+
+        // Handle the Save button click
+        binding.buttonSaveAuthor.setOnClickListener {
+            val title = binding.addAuthorEditText.text.toString()
+            profileViewModel.addAuthor(title)
+            binding.addAuthorEditText.text.clear() // Clear the EditText after saving
+        }
 
     }
 

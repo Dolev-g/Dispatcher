@@ -40,9 +40,8 @@ class HomeFragment : Fragment() {
 
         // Handle the Save button click
         binding.buttonSave.setOnClickListener {
-            val title = binding.editTextTitle.text.toString()
-            val newArticle = Article(id = 0, title = title, content = "", author = "")
-            homeViewModel.addFirstTwoWords(newArticle)
+            val content = binding.editTextTitle.text.toString()
+            homeViewModel.addFirstTwoWords(content)
             binding.editTextTitle.text.clear() // Clear the EditText after saving
         }
     }

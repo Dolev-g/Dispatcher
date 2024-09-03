@@ -12,21 +12,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val articleRepository = ArticleRepository(application)
     private val articlesLiveData = MutableLiveData<List<Article>>()
 
-    private val FirstTwoWordsLiveData = MutableLiveData<List<String>>()
+    private val firstTwoWordsLiveData = MutableLiveData<List<String>>()
 
     init {
         articlesLiveData.value = articleRepository.getArticles()
         updateFirstTwoWordsArticles()
     }
 
-    fun addFirstTwoWords(article: Article) {
-        articleRepository.addArticle(article)
-        articlesLiveData.value = articleRepository.getArticles()
-        updateFirstTwoWordsArticles()
+    fun addFirstTwoWords(content: String) {
+        val firstTwoWords = content.split(" ").take(2).joinToString(" ")
+        val currentList = firstTwoWordsLiveData.value ?: emptyList()
+        val updatedList = currentList + firstTwoWords
+        firstTwoWordsLiveData.value = updatedList
     }
 
     fun getFirstTwoWordsLiveData(): LiveData<List<String>> {
-        return FirstTwoWordsLiveData
+        return firstTwoWordsLiveData
     }
 
     private fun updateFirstTwoWordsArticles() {
@@ -34,6 +35,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val truncatedArticles = articles?.map { article ->
             article.content.split(" ").take(2).joinToString(" ")
         } ?: emptyList()
-        FirstTwoWordsLiveData.value = truncatedArticles
+        firstTwoWordsLiveData.value = truncatedArticles
     }
 }

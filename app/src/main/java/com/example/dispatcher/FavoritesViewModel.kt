@@ -23,6 +23,17 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         return articlesTitlesLiveData
     }
 
+    fun addTitle(title: String) {
+        val currentTitles = articlesTitlesLiveData.value ?: ""
+        // Add the new title to the existing titles, separated by a newline
+        val updatedTitles = if (currentTitles.isEmpty()) {
+            title
+        } else {
+            "$currentTitles\n$title"
+        }
+        articlesTitlesLiveData.value = updatedTitles
+    }
+
     private fun updateTitles() {
         val articlesList = articlesLiveData.value
 

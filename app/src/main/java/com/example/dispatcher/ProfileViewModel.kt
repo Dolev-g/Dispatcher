@@ -23,6 +23,17 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         return authorsLiveData
     }
 
+    fun addAuthor(author: String) {
+        val currentTitles = authorsLiveData.value ?: ""
+        // Add the new title to the existing titles, separated by a newline
+        val updatedTitles = if (currentTitles.isEmpty()) {
+            author
+        } else {
+            "$currentTitles\n$author"
+        }
+        authorsLiveData.value = updatedTitles
+    }
+
     private fun updateAuthors() {
         val articlesList = articlesLiveData.value
 
