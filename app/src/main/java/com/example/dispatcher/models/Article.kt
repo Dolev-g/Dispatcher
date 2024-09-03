@@ -1,4 +1,4 @@
-package com.example.dispatcher
+package com.example.dispatcher.models
 
 data class Article(
     val title: String?,

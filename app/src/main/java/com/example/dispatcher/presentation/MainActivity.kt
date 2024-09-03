@@ -1,11 +1,14 @@
-package com.example.dispatcher
+package com.example.dispatcher.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.dispatcher.presentation.fragments.FavoritesFragment
+import com.example.dispatcher.presentation.fragments.HomeFragment
+import com.example.dispatcher.presentation.fragments.ProfileFragment
+import com.example.dispatcher.R
+import com.example.dispatcher.data.FirebaseCrashlyticsManager
 import com.example.dispatcher.databinding.ActivityMainBinding
-import com.google.firebase.crashlytics.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 

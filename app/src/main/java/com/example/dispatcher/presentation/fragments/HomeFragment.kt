@@ -1,4 +1,4 @@
-package com.example.dispatcher
+package com.example.dispatcher.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.dispatcher.databinding.FragmentHomeBinding
+import com.example.dispatcher.presentation.utils.displayToast
 
 class HomeFragment : BaseFragment() {
 
