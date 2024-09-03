@@ -1,10 +1,10 @@
-package com.example.dispatcher.presentation.fragments
+package com.example.dispatcher.common.base
 
-import com.example.dispatcher.data.JsonDataManager
+import com.example.dispatcher.common.utils.JsonDataManager
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.dispatcher.models.Article
+import com.example.dispatcher.features.homepage.domain.models.Article
 
 abstract class BaseFragment : Fragment() {
 

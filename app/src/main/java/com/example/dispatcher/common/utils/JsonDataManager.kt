@@ -1,7 +1,7 @@
-package com.example.dispatcher.data
+package com.example.dispatcher.common.utils
 
 import android.content.Context
-import com.example.dispatcher.models.Article
+import com.example.dispatcher.features.homepage.domain.models.Article
 import com.example.dispatcher.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

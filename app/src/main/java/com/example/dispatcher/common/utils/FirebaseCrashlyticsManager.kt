@@ -1,4 +1,4 @@
-package com.example.dispatcher.data
+package com.example.dispatcher.common.utils
 
 import android.content.Context
 import android.util.Log

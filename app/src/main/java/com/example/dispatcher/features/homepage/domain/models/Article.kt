@@ -1,4 +1,4 @@
-package com.example.dispatcher.models
+package com.example.dispatcher.features.homepage.domain.models
 
 data class Article(
     val title: String?,

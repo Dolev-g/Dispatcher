@@ -1,4 +1,4 @@
-package com.example.dispatcher.presentation
+package com.example.dispatcher.common.base
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

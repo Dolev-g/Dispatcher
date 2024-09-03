@@ -1,4 +1,4 @@
-package com.example.dispatcher.presentation.utils
+package com.example.dispatcher.common.utils
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
