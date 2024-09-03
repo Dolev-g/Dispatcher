@@ -44,7 +44,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/search" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
 
     <!-- Tabs Layout -->

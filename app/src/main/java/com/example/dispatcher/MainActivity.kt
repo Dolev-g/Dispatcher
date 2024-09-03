@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.databinding.ActivityMainBinding
+import com.google.firebase.crashlytics.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,15 +14,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Initialize Firebase Crashlytics Manager
+        FirebaseCrashlyticsManager.initialize(this)
 
         // Set the initial fragment and tab image
         replaceFragment(HomeFragment())
         selectTab(R.id.tab_home)
 
-        // Set up tab click listeners
         binding.tabHome.setOnClickListener {
             replaceFragment(HomeFragment())
             selectTab(R.id.tab_home)
@@ -50,5 +52,4 @@ class MainActivity : AppCompatActivity() {
         binding.tabFavorites.isSelected = selectedTabId == R.id.tab_favorites
         binding.tabProfile.isSelected = selectedTabId == R.id.tab_profile
     }
-
 }

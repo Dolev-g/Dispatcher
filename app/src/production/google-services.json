@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "442410883551",
+    "project_id": "dispatcher-5e684",
+    "storage_bucket": "dispatcher-5e684.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442410883551:android:0404200959710cbffb4c6a",
+        "android_client_info": {
+          "package_name": "com.dispatcher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNFX1V6yrd10yxcovkiiys-swC9wmBB1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
