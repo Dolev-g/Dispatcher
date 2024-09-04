@@ -60,6 +60,7 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = true
             }
+
         }
     }
 
@@ -103,6 +104,8 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     implementation(libs.androidx.fragment)
+    implementation("com.google.code.gson:gson:2.8.9")
+
 
     implementation("com.google.firebase:firebase-crashlytics")
     implementation(libs.play.services.measurement.api)

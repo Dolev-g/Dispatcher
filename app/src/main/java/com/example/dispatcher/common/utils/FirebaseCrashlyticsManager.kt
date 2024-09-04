@@ -1,7 +1,6 @@
-package com.example.dispatcher
+package com.example.dispatcher.common.utils
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
