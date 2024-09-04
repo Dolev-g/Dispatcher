@@ -4,21 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
-import com.example.dispatcher.common.base.BaseFragment
-import com.example.dispatcher.common.utils.displayToast
+import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
 
-class FavoritesFragment : BaseFragment() {
+class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout using view binding
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -26,18 +30,22 @@ class FavoritesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Dynamically create a TextView for each title and add it to the layout
-        articleList.mapNotNull { it.title }.forEach { title ->
-            val textView = TextView(requireContext()).apply {
-                text = title
-                textSize = 18f
-                setTextColor(resources.getColor(android.R.color.black, null))
-            }
-            // Add the TextView to the root LinearLayout
-            binding.root.addView(textView)
-        }
+        subscribeObservers()
+        onClickButtonSave()
+    }
 
-        displayToast("Favorites Fragment is active!")
+    private fun subscribeObservers() {
+        favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner, Observer { titles ->
+            binding.textViewFavoritesFragment.text = titles
+        })
+    }
+
+    private fun onClickButtonSave() {
+        binding.buttonSaveTitle.setOnClickListener {
+            val title = binding.addTitleEditText.text.toString()
+            favoritesViewModel.addTitle(title)
+            binding.addTitleEditText.text.clear()
+        }
     }
 
     override fun onDestroyView() {

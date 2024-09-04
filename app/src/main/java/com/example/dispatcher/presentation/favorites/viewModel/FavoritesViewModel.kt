@@ -1,11 +1,11 @@
-package com.example.dispatcher.viewmodel
+package com.example.dispatcher.presentation.favorites.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.dispatcher.model.Article
-import com.example.dispatcher.repository.ArticleRepository
+import com.example.dispatcher.presentation.homepage.model.Article
+import com.example.dispatcher.domain.homepage.repo.ArticleRepository
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 

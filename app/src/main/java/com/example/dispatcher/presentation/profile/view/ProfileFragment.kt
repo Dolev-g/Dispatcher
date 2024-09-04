@@ -1,4 +1,4 @@
-package com.example.dispatcher
+package com.example.dispatcher.presentation.profile.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentProfileBinding
-import com.example.dispatcher.viewmodel.ProfileViewModel
+import com.example.dispatcher.presentation.profile.viewModel.ProfileViewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_favorites) {
 
