@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
-import com.example.dispatcher.model.Article
 import com.example.dispatcher.viewmodel.FavoritesViewModel
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
@@ -16,7 +15,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    // Instantiate the ViewModel
     private val favoritesViewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(
@@ -31,19 +29,22 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe the LiveData from the ViewModel
+        subscribeObservers()
+        onClickButtonSave()
+    }
+
+    private fun subscribeObservers() {
         favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner, Observer { titles ->
-            // Set the text to the TextView
             binding.textViewFavoritesFragment.text = titles
         })
+    }
 
-        // Handle the Save button click
+    private fun onClickButtonSave() {
         binding.buttonSaveTitle.setOnClickListener {
             val title = binding.addTitleEditText.text.toString()
             favoritesViewModel.addTitle(title)
-            binding.addTitleEditText.text.clear() // Clear the EditText after saving
+            binding.addTitleEditText.text.clear()
         }
-
     }
 
     override fun onDestroyView() {

@@ -31,13 +31,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe the LiveData from the ViewModel
+        subscribeObservers()
+        onClickButtonSave()
+    }
+
+    private fun subscribeObservers() {
         homeViewModel.getFirstTwoWordsLiveData().observe(viewLifecycleOwner, Observer { TwoWords ->
 
             // Set the text to the TextView
             binding.textViewHomeFragment.text = TwoWords.toString()
         })
+    }
 
+    private fun onClickButtonSave() {
         // Handle the Save button click
         binding.buttonSave.setOnClickListener {
             val content = binding.editTextTitle.text.toString()
@@ -47,7 +53,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    super.onDestroyView()
+    _binding = null
     }
 }

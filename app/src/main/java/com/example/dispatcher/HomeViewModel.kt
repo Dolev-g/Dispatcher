@@ -10,12 +10,13 @@ import com.example.dispatcher.repository.ArticleRepository
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepository = ArticleRepository(application)
-    private val articlesLiveData = MutableLiveData<List<Article>>()
+    private lateinit var articlesList: MutableList<Article>
+
 
     private val firstTwoWordsLiveData = MutableLiveData<List<String>>()
 
     init {
-        articlesLiveData.value = articleRepository.getArticles()
+        articlesList = articleRepository.getArticles().toMutableList()
         updateFirstTwoWordsArticles()
     }
 
@@ -31,8 +32,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun updateFirstTwoWordsArticles() {
-        val articles = articlesLiveData.value
-        val truncatedArticles = articles?.map { article ->
+        val truncatedArticles = articlesList?.map { article ->
             article.content.split(" ").take(2).joinToString(" ")
         } ?: emptyList()
         firstTwoWordsLiveData.value = truncatedArticles

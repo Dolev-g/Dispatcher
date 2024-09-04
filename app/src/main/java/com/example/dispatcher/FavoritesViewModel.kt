@@ -10,12 +10,12 @@ import com.example.dispatcher.repository.ArticleRepository
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepository = ArticleRepository(application)
-    private val articlesLiveData = MutableLiveData<List<Article>>()
+    private lateinit var articlesList: MutableList<Article>
 
     private val articlesTitlesLiveData = MutableLiveData<String>()
 
     init {
-        articlesLiveData.value = articleRepository.getArticles()
+        articlesList = articleRepository.getArticles().toMutableList()
         updateTitles()
     }
 
@@ -35,7 +35,6 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private fun updateTitles() {
-        val articlesList = articlesLiveData.value
 
         // Keep only the titles of the articles
         val articlesTitles = articlesList?.joinToString(separator = "\n") { article ->
