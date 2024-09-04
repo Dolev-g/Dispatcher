@@ -12,10 +12,10 @@ class SplashActivity : ComponentActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            // Start MainActivity
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+
+            val intent = Intent(this@SplashActivity, AuthActivity::class.java)
             startActivity(intent)
-            finish() // Close the SplashActivity
+            finish()
         }, 3000)
     }
 }
