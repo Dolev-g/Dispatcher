@@ -3,9 +3,9 @@ package com.example.dispatcher.common.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.dispatcher.features.favorites.presentation.view.FavoritesFragment
-import com.example.dispatcher.features.homepage.presentation.view.HomeFragment
-import com.example.dispatcher.features.profilepage.presentation.view.ProfileFragment
+import com.example.dispatcher.presentation.favorites.view.FavoritesFragment
+import com.example.dispatcher.presentation.homepage.view.HomeFragment
+import com.example.dispatcher.presentation.profile.view.ProfileFragment
 import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.FirebaseCrashlyticsManager
 import com.example.dispatcher.databinding.ActivityMainBinding
