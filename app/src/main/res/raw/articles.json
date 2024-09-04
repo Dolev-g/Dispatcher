@@ -1,0 +1,20 @@
+[
+  {
+    "title": "First Article",
+    "imageUrl": null,
+    "author": "Author One",
+    "body": "This is1 the body of the first article."
+  },
+  {
+    "title": "Second Article",
+    "imageUrl": null,
+    "author": "Author Two",
+    "body": "This is2 the body of the second article."
+  },
+  {
+    "title": "Third Article",
+    "imageUrl": null,
+    "author": "Author Three",
+    "body": "This is3 the body of the third article."
+  }
+]
