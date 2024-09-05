@@ -31,20 +31,19 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeObservers()
-        onClickButtonSave()
+        setSaveButton()
     }
 
     private fun subscribeObservers() {
-        favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner, Observer { titles ->
+        favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner) { titles ->
             binding.textViewFavoritesFragment.text = titles
-        })
+        }
     }
 
-    private fun onClickButtonSave() {
+    private fun setSaveButton() {
         binding.buttonSaveTitle.setOnClickListener {
             val title = binding.addTitleEditText.text.toString()
             favoritesViewModel.addTitle(title)
-            binding.addTitleEditText.text.clear()
         }
     }
 
