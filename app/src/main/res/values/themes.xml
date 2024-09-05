@@ -7,4 +7,54 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="headline1">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/headline1Color</item>
+    </style>
+
+
+        <style name="inputTextBox">
+            <item name="android:layout_width">match_parent</item> <!-- Fill width -->
+            <item name="android:layout_height">44dp</item> <!-- Fixed height -->
+            <item name="android:paddingStart">16dp</item> <!-- Left padding -->
+            <item name="android:paddingEnd">12dp</item> <!-- Right padding -->
+            <item name="android:textColor">#5A5A89</item> <!-- Text color -->
+            <item name="android:background">@drawable/edittext_border</item> <!-- Custom background with border -->
+        </style>
+
+    <style name="PrimaryButton">
+        <item name="android:layout_width">wrap_content</item> <!-- Hug width (wrap_content) -->
+        <item name="android:layout_height">36dp</item> <!-- Fixed height -->
+        <item name="android:paddingStart">16dp</item> <!-- Left padding -->
+        <item name="android:paddingEnd">16dp</item> <!-- Right padding -->
+        <item name="android:background">@drawable/primary_button_background</item> <!-- Custom background with color and border-radius -->
+        <item name="android:layout_marginTop">79dp</item> <!-- Top margin -->
+        <item name="android:layout_marginLeft">8dp</item> <!-- Left margin -->
+        <item name="android:letterSpacing">0.025</item> <!-- Gap between letters -->
+        <item name="android:textColor">#FFFFFF</item> <!-- White text color for contrast -->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="SecondaryButton">
+        <item name="android:layout_width">wrap_content</item> <!-- Hug width (wrap_content) -->
+        <item name="android:layout_height">36dp</item> <!-- Fixed height -->
+        <item name="android:paddingStart">16dp</item> <!-- Left padding -->
+        <item name="android:paddingEnd">16dp</item> <!-- Right padding -->
+        <item name="android:background">@drawable/sec_button_background</item> <!-- Custom background with color and border-radius -->
+        <item name="android:layout_marginTop">79dp</item> <!-- Top margin -->
+        <item name="android:layout_marginLeft">8dp</item> <!-- Left margin -->
+        <item name="android:letterSpacing">0.025</item> <!-- Gap between letters -->
+        <item name="android:textColor">#5A5A89</item> <!-- White text color for contrast -->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+
+
+
+
 </resources>

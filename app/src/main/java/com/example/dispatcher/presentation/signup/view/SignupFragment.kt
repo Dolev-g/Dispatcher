@@ -11,11 +11,12 @@ import com.example.dispatcher.R
 import com.example.dispatcher.common.base.AuthActivity
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
 import com.example.dispatcher.databinding.FragmentLoginBinding
+import com.example.dispatcher.databinding.FragmentSignupBinding
 import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class SignupFragment : Fragment(R.layout.fragment_signup) {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
     // private val favoritesViewModel: FavoritesViewModel by viewModels() change to login vm
@@ -25,20 +26,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentSignupBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setSignupButton()
-
     }
 
     private fun setSignupButton () {
-        binding.signupButton.setOnClickListener {
-            (requireActivity() as AuthActivity).replaceFragment(SignupFragment())
+        binding.loginButton.setOnClickListener {
+            (requireActivity() as AuthActivity).replaceFragment(LoginFragment())
         }
     }
 

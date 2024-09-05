@@ -3,4 +3,12 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="splash_text">Dispatcher</string>
     <string name="title_activity_auth">AuthActivity</string>
+    <string name="loginHeadline">Login</string>
+    <string name="signuoHeadline">Signup</string>
+    <string name="emailHint">Your Email</string>
+    <string name="passwordHint">Password</string>
+    <string name="reEnterHint">Re-Enter Password</string>
+    <string name="LoginButton">LOGIN</string>
+    <string name="SignupButton">SIGNUP</string>
+
 </resources>

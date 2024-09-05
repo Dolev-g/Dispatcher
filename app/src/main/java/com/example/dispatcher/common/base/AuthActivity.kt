@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.ActivityAuthBinding
-import com.example.dispatcher.databinding.ActivityMainBinding
-import com.example.dispatcher.presentation.favorites.view.LoginFragment
-import com.example.dispatcher.presentation.homepage.view.HomeFragment
+import com.example.dispatcher.presentation.login.view.LoginFragment
 
 class AuthActivity : AppCompatActivity() {
 
@@ -25,7 +23,7 @@ class AuthActivity : AppCompatActivity() {
 
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentDisplayAuth, fragment)

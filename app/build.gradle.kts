@@ -112,6 +112,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-crashlytics")
     implementation(libs.play.services.measurement.api)
+    implementation(libs.androidx.constraintlayout)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
