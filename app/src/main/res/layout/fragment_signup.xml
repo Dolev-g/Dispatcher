@@ -29,63 +29,65 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineBelowImage"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/textLogin"
+            style="@style/headline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signuoHeadline"
-            android:layout_marginTop="40dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/signuoHeadline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/headline1" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Email input field -->
         <EditText
             android:id="@+id/editTextEmail"
+            style="@style/inputTextBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="20dp"
             android:hint="@string/emailHint"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="24dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:padding="12dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textLogin"
-            style="@style/inputTextBox" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textLogin" />
 
         <EditText
             android:id="@+id/editTextPassword"
+            style="@style/inputTextBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/passwordHint"
-            android:layout_marginTop="24dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
             android:layout_marginRight="20dp"
+            android:hint="@string/passwordHint"
             android:padding="12dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextEmail"
-            style="@style/inputTextBox" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextEmail" />
 
         <EditText
             android:id="@+id/reEnterTextPassword"
+            style="@style/inputTextBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/reEnterHint"
-            android:layout_marginTop="24dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
             android:layout_marginRight="20dp"
+            android:hint="@string/reEnterHint"
             android:padding="12dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextPassword"
-            style="@style/inputTextBox" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextPassword" />
 
         <Button
             android:id="@+id/signupButton"
@@ -94,11 +96,10 @@
             android:layout_height="36dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/SignupButton"
             app:layout_constraintBottom_toTopOf="@id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -108,11 +109,10 @@
             android:layout_height="36dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/LoginButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent" />
 
 
