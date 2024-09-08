@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.dispatcher.databinding.FragmentHomeBinding
-import com.example.dispatcher.common.base.BaseFragment
-import com.example.dispatcher.common.utils.displayToast
+import com.example.dispatcher.presentation.homepage.viewModel.HomeViewModel
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private val homeViewModel: HomeViewModel by viewModels()
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -25,24 +28,26 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Dynamically create and add a TextView for the first two words of each article's body
-        articleList.mapNotNull { article ->
-            article.body?.split(" ")?.take(2)?.joinToString(" ")
-        }.forEach { firstTwoWords ->
-            val textView = TextView(requireContext()).apply {
-                text = firstTwoWords
-                textSize = 18f
-                setTextColor(resources.getColor(android.R.color.black, null))
-            }
+        subscribeObservers()
+        setSaveButton()
+    }
 
-            binding.root.addView(textView)
+    private fun subscribeObservers() {
+        homeViewModel.getFirstTwoWordsLiveData().observe(viewLifecycleOwner) { twoWords ->
+            binding.textViewHomeFragment.text = twoWords.toString()
         }
+    }
 
-        displayToast("Home Fragment is active!")
+    private fun setSaveButton() {
+        // Handle the Save button click
+        binding.buttonSave.setOnClickListener {
+            val content = binding.editTextTitle.text.toString()
+            homeViewModel.addFirstTwoWords(content)
+        }
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    super.onDestroyView()
+    _binding = null
     }
 }

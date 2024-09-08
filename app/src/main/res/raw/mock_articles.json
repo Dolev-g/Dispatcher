@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "First Article",
+    "content": "This is the content of the first article.",
+    "author": "Author One"
+  },
+  {
+    "id": 2,
+    "title": "Second Article",
+    "content": "Hello world",
+    "author": "Author Two"
+  },
+  {
+    "id": 3,
+    "title": "Third Article",
+    "content": "world hello",
+    "author": "Author Three"
+  }
+]
