@@ -13,10 +13,11 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val stage = MutableLiveData<String>()
+
     private val _authResult = MutableLiveData<AuthResult>()
     val authResult: LiveData<AuthResult> get() = _authResult
-    private val loader = MutableLiveData<Boolean>().apply { value = false }
 
+    private val loader = MutableLiveData<Boolean>().apply { value = false }
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 

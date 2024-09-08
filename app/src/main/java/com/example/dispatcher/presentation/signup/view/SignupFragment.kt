@@ -38,13 +38,12 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         setLoginButton()
         setSignupButton()
         observeAuthResult()
-
     }
 
     private fun observeAuthResult() {
         authViewModel.authResult.observe(viewLifecycleOwner) { result ->
             if (result.success) {
-                Toast.makeText(requireContext(), "Operation successful!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "signup successful!", Toast.LENGTH_SHORT).show()
                 authViewModel.changeLoader(false)
                 authViewModel.changeStage("login")
             } else {

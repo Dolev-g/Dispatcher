@@ -24,11 +24,9 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //FirebaseCrashlyticsManager.initialize(this)
         replaceFragment(LoginFragment())
         subscribeObservers()
         subscribeToLoader()
-
     }
 
     private fun subscribeObservers() {

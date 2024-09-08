@@ -40,7 +40,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         setSignupButton()
         setLoginButton()
         observeAuthResult()
-
+        setupPasswordVisibilityToggle()
     }
 
     private fun observeAuthResult() {
@@ -81,6 +81,23 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         startActivity(intent)
         requireActivity().finish()
     }
+
+    private fun setupPasswordVisibilityToggle() {
+        binding.editTextPassword.setOnClickListener {
+            togglePasswordVisibility()
+        }
+    }
+
+    private fun togglePasswordVisibility() {
+        val passwordEditText = binding.editTextPassword
+        if (passwordEditText.inputType == android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+        } else {
+            passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        }
+        passwordEditText.setSelection(passwordEditText.text.length)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
