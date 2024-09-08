@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.ActivityAuthBinding
@@ -42,8 +41,12 @@ class AuthActivity : AppCompatActivity() {
         authViewModel.getLoader().observe(this, Observer { isLoading ->
             if (isLoading == true) {
                 binding.progressBarAuth.visibility = View.VISIBLE
+                binding.dimOverlay.visibility = View.VISIBLE
+
             } else {
                 binding.progressBarAuth.visibility = View.GONE
+                binding.dimOverlay.visibility = View.GONE
+
             }
         })
     }

@@ -40,35 +40,44 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         setSignupButton()
         setLoginButton()
         observeAuthResult()
-        setupPasswordVisibilityToggle()
     }
 
     private fun observeAuthResult() {
         authViewModel.authResult.observe(viewLifecycleOwner) { result ->
             if (result.success) {
                 Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
+                clearErrors()
                 navigateToMainActivity()
                 authViewModel.changeLoader(false)
             } else {
                 authViewModel.changeLoader(false)
+                binding.emailTextInputLayout.error = "Invalid email or password"
                 Toast.makeText(requireContext(), result.error ?: "Login failed!", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun setLoginButton () {
+    private fun setLoginButton() {
         binding.loginButton.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextPassword.text.toString()
+
+            clearErrors()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 authViewModel.changeLoader(true)
                 authViewModel.checkLogin(email, password)
             } else {
+                binding.emailTextInputLayout.error = "Please enter a valid email"
                 Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    private fun clearErrors() {
+        binding.emailTextInputLayout.error = null
+    }
+
 
     private fun setSignupButton () {
         binding.signupButton.setOnClickListener {
@@ -81,23 +90,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         startActivity(intent)
         requireActivity().finish()
     }
-
-    private fun setupPasswordVisibilityToggle() {
-        binding.editTextPassword.setOnClickListener {
-            togglePasswordVisibility()
-        }
-    }
-
-    private fun togglePasswordVisibility() {
-        val passwordEditText = binding.editTextPassword
-        if (passwordEditText.inputType == android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-            passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-        } else {
-            passwordEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-        }
-        passwordEditText.setSelection(passwordEditText.text.length)
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
