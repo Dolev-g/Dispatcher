@@ -16,6 +16,7 @@ import com.example.dispatcher.common.base.AuthActivity
 import com.example.dispatcher.common.base.MainActivity
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
 import com.example.dispatcher.databinding.FragmentLoginBinding
+import com.example.dispatcher.presentation.auth.AuthResult
 import com.example.dispatcher.presentation.favorites.viewModel.AuthViewModel
 import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
 
@@ -43,12 +44,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun observeAuthResult() {
-        authViewModel.authResult.observe(viewLifecycleOwner) { success ->
-            if (success) {
+        authViewModel.authResult.observe(viewLifecycleOwner) { result ->
+            if (result.success) {
                 Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
                 navigateToMainActivity()
+                authViewModel.changeLoader(false)
             } else {
-                Toast.makeText(requireContext(), "Login failed!", Toast.LENGTH_SHORT).show()
+                authViewModel.changeLoader(false)
+                Toast.makeText(requireContext(), result.error ?: "Login failed!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -59,6 +62,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = binding.editTextPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                authViewModel.changeLoader(true)
                 authViewModel.checkLogin(email, password)
             } else {
                 Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()

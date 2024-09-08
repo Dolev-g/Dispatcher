@@ -14,6 +14,7 @@ import com.example.dispatcher.common.base.AuthActivity
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
 import com.example.dispatcher.databinding.FragmentLoginBinding
 import com.example.dispatcher.databinding.FragmentSignupBinding
+import com.example.dispatcher.presentation.auth.AuthResult
 import com.example.dispatcher.presentation.favorites.viewModel.AuthViewModel
 import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
 
@@ -41,12 +42,14 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
     }
 
     private fun observeAuthResult() {
-        authViewModel.authResult.observe(viewLifecycleOwner) { success ->
-            if (success) {
-                Toast.makeText(requireContext(), "Signup successful!", Toast.LENGTH_SHORT).show()
-                // Navigate to another fragment or activity
+        authViewModel.authResult.observe(viewLifecycleOwner) { result ->
+            if (result.success) {
+                Toast.makeText(requireContext(), "Operation successful!", Toast.LENGTH_SHORT).show()
+                authViewModel.changeLoader(false)
+                authViewModel.changeStage("login")
             } else {
-                Toast.makeText(requireContext(), "Signup failed!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), result.error ?: "An unknown error occurred", Toast.LENGTH_SHORT).show()
+                authViewModel.changeLoader(false)
             }
         }
     }
@@ -55,8 +58,14 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         binding.signupButton.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextPassword.text.toString()
+            val reEnterPassword = binding.reEnterTextPassword.text.toString()
+
+            if (password != reEnterPassword) {
+                Toast.makeText(requireContext(), "Password doesn't match re-Enter password", Toast.LENGTH_SHORT).show()
+            }
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                authViewModel.changeLoader(true)
                 authViewModel.createAccount(email, password)
             } else {
                 Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
@@ -66,7 +75,8 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
 
     private fun setLoginButton () {
         binding.loginButton.setOnClickListener {
-            authViewModel.changeStage("login")        }
+            authViewModel.changeStage("login")
+        }
     }
 
     override fun onDestroyView() {

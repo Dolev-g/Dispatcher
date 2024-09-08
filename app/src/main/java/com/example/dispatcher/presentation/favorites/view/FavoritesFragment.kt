@@ -32,6 +32,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
         subscribeObservers()
         onClickButtonSave()
+        FirebaseAuth.getInstance().signOut()
+
     }
 
     private fun subscribeObservers() {

@@ -1,6 +1,7 @@
 package com.example.dispatcher.common.base
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ class AuthActivity : AppCompatActivity() {
         //FirebaseCrashlyticsManager.initialize(this)
         replaceFragment(LoginFragment())
         subscribeObservers()
+        subscribeToLoader()
 
     }
 
@@ -34,6 +36,16 @@ class AuthActivity : AppCompatActivity() {
             when (currentStage) {
                 "login" -> replaceFragment(LoginFragment())
                 "signup" -> replaceFragment(SignupFragment())
+            }
+        })
+    }
+
+    private fun subscribeToLoader() {
+        authViewModel.getLoader().observe(this, Observer { isLoading ->
+            if (isLoading == true) {
+                binding.progressBarAuth.visibility = View.VISIBLE
+            } else {
+                binding.progressBarAuth.visibility = View.GONE
             }
         })
     }
