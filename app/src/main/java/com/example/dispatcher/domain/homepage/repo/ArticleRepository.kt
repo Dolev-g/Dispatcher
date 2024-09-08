@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.InputStreamReader
 
-class ArticleRepository(context: Context) : InterfaceArticleRepo {
+class MockArticleRepository(context: Context) : IArticleRepository {
 
     private val articles = mutableListOf<Article>()
 

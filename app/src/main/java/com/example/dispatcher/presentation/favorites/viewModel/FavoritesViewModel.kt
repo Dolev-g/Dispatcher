@@ -6,14 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.dispatcher.domain.homepage.repo.ArticleRepoFactory
 import com.example.dispatcher.presentation.homepage.model.Article
-import com.example.dispatcher.domain.homepage.repo.ArticleRepository
 import com.example.dispatcher.domain.homepage.repo.EnumArticleType
-import com.example.dispatcher.domain.homepage.repo.InterfaceArticleRepo
+import com.example.dispatcher.domain.homepage.repo.IArticleRepository
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
-    private val articleRepository: InterfaceArticleRepo = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
+    private val articleRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
     private var articlesList: MutableList<Article> = articleRepository.getArticles()
 
     private val articlesTitlesLiveData = MutableLiveData<String>()
