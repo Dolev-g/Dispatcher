@@ -3,9 +3,9 @@ package com.example.dispatcher.presentation.HeaderView
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.dispatcher.R
+import com.example.dispatcher.databinding.ViewHeaderBinding
 
 class HeaderView @JvmOverloads constructor(
     context: Context,
@@ -13,15 +13,20 @@ class HeaderView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
 
-    val imageView: ImageView
-    val bellIcon: ImageView
-    val searchIcon: ImageView
+    private val binding: ViewHeaderBinding = ViewHeaderBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_header, this, true)
-
-        imageView = findViewById(R.id.headerImageView)
-        bellIcon = findViewById(R.id.headerBellIcon)
-        searchIcon = findViewById(R.id.headerSearchIcon)
+        setListeners()
     }
+
+    private fun setListeners() {
+        binding.headerBellIcon.setOnClickListener {
+        }
+
+        binding.headerSearchIcon.setOnClickListener {
+        }
+    }
+
+
+
 }
