@@ -4,18 +4,20 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.dispatcher.domain.homepage.repo.ArticleRepoFactory
 import com.example.dispatcher.presentation.homepage.model.Article
-import com.example.dispatcher.domain.homepage.repo.ArticleRepository
+import com.example.dispatcher.domain.homepage.repo.EnumArticleType
+import com.example.dispatcher.domain.homepage.repo.IArticleRepository
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val articleRepository = ArticleRepository(application)
-    private lateinit var articlesList: MutableList<Article>
+    private val articleRepoFactory = ArticleRepoFactory(application)
+    private val articleRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
+    private var articlesList: MutableList<Article> = articleRepository.getArticles()
 
     private val articlesTitlesLiveData = MutableLiveData<String>()
 
     init {
-        articlesList = articleRepository.getArticles().toMutableList()
         updateTitles()
     }
 
@@ -25,7 +27,6 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun addTitle(title: String) {
         val currentTitles = articlesTitlesLiveData.value ?: ""
-        // Add the new title to the existing titles, separated by a newline
         val updatedTitles = if (currentTitles.isEmpty()) {
             title
         } else {
@@ -35,12 +36,19 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private fun updateTitles() {
+        var articlesTitles = ""
 
-        // Keep only the titles of the articles
-        val articlesTitles = articlesList?.joinToString(separator = "\n") { article ->
-            article.title
-        } ?: "No articles found"
+        articlesList?.forEach { article ->
+            articlesTitles += "${article.title}\n"
+        }
+
+        if (articlesTitles.isEmpty()) {
+            articlesTitles = "No articles found"
+        } else {
+            articlesTitles = articlesTitles.trimEnd()
+        }
 
         articlesTitlesLiveData.value = articlesTitles
     }
+
 }

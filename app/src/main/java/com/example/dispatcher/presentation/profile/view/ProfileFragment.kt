@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentProfileBinding
 import com.example.dispatcher.presentation.profile.viewModel.ProfileViewModel
@@ -31,20 +30,19 @@ class ProfileFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeObservers()
-        onClickButtonSave()
+        setSaveButton()
     }
 
     private fun subscribeObservers() {
-        profileViewModel.getAuthorsLiveData().observe(viewLifecycleOwner, Observer { titles ->
-            binding.textViewProfileFragment.text = titles
-        })
+        profileViewModel.getAuthorsLiveData().observe(viewLifecycleOwner) { authors ->
+            binding.textViewProfileFragment.text = authors
+        }
     }
 
-    private fun onClickButtonSave() {
+    private fun setSaveButton() {
         binding.buttonSaveAuthor.setOnClickListener {
             val title = binding.addAuthorEditText.text.toString()
             profileViewModel.addAuthor(title)
-            binding.addAuthorEditText.text.clear()
         }
     }
 

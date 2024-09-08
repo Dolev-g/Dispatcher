@@ -7,12 +7,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.InputStreamReader
 
-class ArticleRepository(context: Context) {
+class MockArticleRepository(context: Context) : IArticleRepository {
 
     private val articles = mutableListOf<Article>()
 
     init {
-        // Load mock articles from the JSON file
         val inputStream = context.resources.openRawResource(R.raw.mock_articles)
         val reader = InputStreamReader(inputStream)
         val articleListType = object : TypeToken<List<Article>>() {}.type
@@ -20,11 +19,7 @@ class ArticleRepository(context: Context) {
         articles.addAll(mockArticles)
     }
 
-    fun addArticle(article: Article) {
-        articles.add(article)
-    }
-
-    fun getArticles(): List<Article> {
-        return articles.toList()
+    override fun getArticles(): MutableList<Article> {
+        return articles
     }
 }

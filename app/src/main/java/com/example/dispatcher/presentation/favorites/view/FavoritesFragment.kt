@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,22 +31,21 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeObservers()
-        onClickButtonSave()
+        setSaveButton()
         FirebaseAuth.getInstance().signOut()
 
     }
 
     private fun subscribeObservers() {
-        favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner, Observer { titles ->
+        favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner) { titles ->
             binding.textViewFavoritesFragment.text = titles
-        })
+        }
     }
 
-    private fun onClickButtonSave() {
+    private fun setSaveButton() {
         binding.buttonSaveTitle.setOnClickListener {
             val title = binding.addTitleEditText.text.toString()
             favoritesViewModel.addTitle(title)
-            binding.addTitleEditText.text.clear()
         }
     }
 

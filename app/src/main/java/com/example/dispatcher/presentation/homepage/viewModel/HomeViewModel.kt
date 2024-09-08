@@ -4,19 +4,20 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.dispatcher.domain.homepage.repo.ArticleRepoFactory
 import com.example.dispatcher.presentation.homepage.model.Article
-import com.example.dispatcher.domain.homepage.repo.ArticleRepository
+import com.example.dispatcher.domain.homepage.repo.EnumArticleType
+import com.example.dispatcher.domain.homepage.repo.IArticleRepository
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val articleRepository = ArticleRepository(application)
-    private lateinit var articlesList: MutableList<Article>
-
+    private val articleRepoFactory = ArticleRepoFactory(application)
+    private val articleRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
+    private var articlesList: MutableList<Article> = articleRepository.getArticles()
 
     private val firstTwoWordsLiveData = MutableLiveData<List<String>>()
 
     init {
-        articlesList = articleRepository.getArticles().toMutableList()
         updateFirstTwoWordsArticles()
     }
 
@@ -32,9 +33,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun updateFirstTwoWordsArticles() {
-        val truncatedArticles = articlesList?.map { article ->
-            article.content.split(" ").take(2).joinToString(" ")
-        } ?: emptyList()
+        val truncatedArticles = mutableListOf<String>()
+
+        articlesList.forEach { article ->
+            val firstTwoWords = article.content.split(" ").take(2).joinToString(" ")
+            truncatedArticles.add(firstTwoWords)
+        }
+
         firstTwoWordsLiveData.value = truncatedArticles
     }
+
 }
