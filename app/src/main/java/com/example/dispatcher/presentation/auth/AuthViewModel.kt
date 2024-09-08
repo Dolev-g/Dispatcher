@@ -41,6 +41,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     _authResult.value = true
+
                 } else {
                     _authResult.value = false
                 }

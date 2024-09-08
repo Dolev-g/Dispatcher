@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
 import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
@@ -29,7 +30,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         subscribeObservers()
         onClickButtonSave()
     }
