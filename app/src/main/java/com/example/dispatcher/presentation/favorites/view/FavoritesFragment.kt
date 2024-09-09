@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentFavoritesBinding
 import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
@@ -32,8 +31,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
         subscribeObservers()
         setSaveButton()
-        FirebaseAuth.getInstance().signOut()
-
     }
 
     private fun subscribeObservers() {

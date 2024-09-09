@@ -1,16 +1,16 @@
-package com.example.dispatcher.common.base
+package com.example.dispatcher.presentation.auth.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.dispatcher.R
+import com.example.dispatcher.common.base.MainActivity
+import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.ActivityAuthBinding
-import com.example.dispatcher.presentation.favorites.viewModel.AuthViewModel
-import com.example.dispatcher.presentation.login.view.LoginFragment
-import com.example.dispatcher.presentation.login.view.SignupFragment
+import com.example.dispatcher.domain.auth.EnumNavigate
+import com.example.dispatcher.presentation.auth.AuthViewModel
 
 class AuthActivity : AppCompatActivity() {
 
@@ -23,32 +23,25 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(LoginFragment())
         subscribeObservers()
         subscribeToLoader()
     }
 
     private fun subscribeObservers() {
-        authViewModel.getStage().observe(this, Observer { currentStage ->
+        authViewModel.getStage().observe(this) { currentStage ->
             when (currentStage) {
-                "login" -> replaceFragment(LoginFragment())
-                "signup" -> replaceFragment(SignupFragment())
+                EnumNavigate.LOGIN -> replaceFragment(LoginFragment())
+                EnumNavigate.SIGNUP -> replaceFragment(SignupFragment())
+                EnumNavigate.MAIN -> startActivity(Intent(this, MainActivity::class.java)).also { finish() }
             }
-        })
+        }
     }
 
     private fun subscribeToLoader() {
-        authViewModel.getLoader().observe(this, Observer { isLoading ->
-            if (isLoading == true) {
-                binding.progressBarAuth.visibility = View.VISIBLE
-                binding.dimOverlay.visibility = View.VISIBLE
-
-            } else {
-                binding.progressBarAuth.visibility = View.GONE
-                binding.dimOverlay.visibility = View.GONE
-
-            }
-        })
+        authViewModel.getLoader().observe(this) { isLoading ->
+            binding.progressBarAuth.showView(isLoading)
+            binding.dimOverlay.showView(isLoading)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

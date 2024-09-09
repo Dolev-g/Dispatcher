@@ -1,4 +1,4 @@
-package com.example.dispatcher.presentation.login.view
+package com.example.dispatcher.presentation.auth.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,16 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.dispatcher.R
-import com.example.dispatcher.common.base.AuthActivity
-import com.example.dispatcher.databinding.FragmentFavoritesBinding
-import com.example.dispatcher.databinding.FragmentLoginBinding
 import com.example.dispatcher.databinding.FragmentSignupBinding
-import com.example.dispatcher.presentation.auth.AuthResult
-import com.example.dispatcher.presentation.favorites.viewModel.AuthViewModel
-import com.example.dispatcher.presentation.favorites.viewModel.FavoritesViewModel
+import com.example.dispatcher.domain.auth.EnumNavigate
+import com.example.dispatcher.presentation.auth.AuthViewModel
 
 class SignupFragment : Fragment(R.layout.fragment_signup) {
 
@@ -41,11 +35,11 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
     }
 
     private fun observeAuthResult() {
-        authViewModel.authResult.observe(viewLifecycleOwner) { result ->
+        authViewModel.getAuthResult().observe(viewLifecycleOwner) { result ->
             if (result.success) {
                 Toast.makeText(requireContext(), "signup successful!", Toast.LENGTH_SHORT).show()
                 authViewModel.changeLoader(false)
-                authViewModel.changeStage("login")
+                authViewModel.changeStage(EnumNavigate.LOGIN)
             } else {
                 Toast.makeText(requireContext(), result.error ?: "An unknown error occurred", Toast.LENGTH_SHORT).show()
                 authViewModel.changeLoader(false)
@@ -74,7 +68,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
 
     private fun setLoginButton () {
         binding.loginButton.setOnClickListener {
-            authViewModel.changeStage("login")
+            authViewModel.changeStage(EnumNavigate.LOGIN)
         }
     }
 

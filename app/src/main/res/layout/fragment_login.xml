@@ -9,7 +9,6 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:src="@drawable/splash_logo"
         app:layout_constraintBottom_toBottomOf="@id/guidelineBelowImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +32,7 @@
 
         <TextView
             android:id="@+id/textLogin"
-            style="@style/headline1"
+            style="@style/headlineAuth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -49,29 +48,32 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:hint="@string/emailHint"
             app:errorEnabled="true"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textLogin">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextEmail"
-                style="@style/inputTextBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:padding="12dp"
-                tools:layout_editor_absoluteX="10dp"
-                tools:layout_editor_absoluteY="201dp" />
+            android:id="@+id/editTextEmail"
+            style="@style/inputTextBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:hint="@string/emailHint"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="201dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emailTextInputLayout"
@@ -99,7 +101,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:text="@string/LoginButton"
-            android:drawableRight="@drawable/arrow_right"
+            android:drawableEnd="@drawable/arrow_right"
             app:layout_constraintBottom_toTopOf="@id/signupButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Dispatcher"
         tools:targetApi="31">
         <activity
-            android:name=".common.base.AuthActivity"
+            android:name=".presentation.auth.view.AuthActivity"
             android:exported="false"
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.Dispatcher" />

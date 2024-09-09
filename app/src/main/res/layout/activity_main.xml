@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <!-- Custom Header -->
-    <com.example.dispatcher.presentation.HeaderView.HeaderView
+    <com.example.dispatcher.presentation.common.view.HeaderView
         android:id="@+id/customHeaderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +13,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentDisplay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/customHeaderView"
         android:layout_centerInParent="true" />
 

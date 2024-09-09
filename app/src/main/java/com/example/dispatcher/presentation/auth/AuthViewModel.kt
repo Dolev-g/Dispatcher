@@ -1,34 +1,38 @@
-package com.example.dispatcher.presentation.favorites.viewModel
+package com.example.dispatcher.presentation.auth
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.dispatcher.presentation.auth.AuthManager
-import com.example.dispatcher.presentation.auth.AuthResult
+import com.example.dispatcher.data.auth.FirebaseAuthManager
+import com.example.dispatcher.domain.auth.EnumNavigate
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
-    private val authManager = AuthManager()
+    private val authManager = FirebaseAuthManager()
 
-    private val stage = MutableLiveData<String>()
-    private val _authResult = MutableLiveData<AuthResult>()
-    val authResult: LiveData<AuthResult> get() = _authResult
-    private val loader = MutableLiveData<Boolean>().apply { value = false }
+    private val stage = MutableLiveData<EnumNavigate>()
+    private val authResult = MutableLiveData<AuthResult>()
+    private val loader = MutableLiveData<Boolean>()
 
     init {
-        stage.value = "login"
+        stage.value = EnumNavigate.LOGIN
+        loader.value = false
     }
 
-    fun changeStage(newStage: String) {
+    fun changeStage(newStage: EnumNavigate) {
         stage.value = newStage
     }
 
-    fun getStage(): LiveData<String> {
+    fun getStage(): LiveData<EnumNavigate> {
         return stage
     }
 
     fun getLoader(): LiveData<Boolean> {
         return loader
+    }
+
+    fun getAuthResult () : LiveData<AuthResult> {
+        return authResult
     }
 
     fun changeLoader(newState: Boolean) {
@@ -37,13 +41,13 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     fun createAccount(email: String, password: String) {
         authManager.createAccount(email, password) { result ->
-            _authResult.value = result
+            authResult.value = result
         }
     }
 
     fun checkLogin(email: String, password: String) {
         authManager.checkLogin(email, password) { result ->
-            _authResult.value = result
+            authResult.value = result
         }
     }
 }

@@ -5,5 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorMainText">#FFFFFF</color>
     <color name="colorLogin">#F8F8FF</color>
-    <color name="headline1Color">#5A5A89</color>
+    <color name="headlineAuthColor">#5A5A89</color>
+    <color name="primaryButton">#0058B9</color>
+    <color name="editTextBorder">#D9DBE9</color>
 </resources>
+

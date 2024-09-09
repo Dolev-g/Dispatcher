@@ -1,10 +1,9 @@
-package com.example.dispatcher.presentation.HeaderView
+package com.example.dispatcher.presentation.common.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
-import com.example.dispatcher.R
 import com.example.dispatcher.databinding.ViewHeaderBinding
 
 class HeaderView @JvmOverloads constructor(
@@ -19,14 +18,11 @@ class HeaderView @JvmOverloads constructor(
         setListeners()
     }
 
-    private fun setListeners() {
+    fun setListeners() {
         binding.headerBellIcon.setOnClickListener {
         }
 
         binding.headerSearchIcon.setOnClickListener {
         }
     }
-
-
-
 }

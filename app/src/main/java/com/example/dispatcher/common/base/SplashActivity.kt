@@ -5,9 +5,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import android.os.Handler
 import com.example.dispatcher.R
-import com.google.firebase.auth.FirebaseAuth
+import com.example.dispatcher.data.auth.FirebaseAuthManager
+import com.example.dispatcher.presentation.auth.view.AuthActivity
 
 class SplashActivity : ComponentActivity() {
+
+    private val authManager = FirebaseAuthManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,15 +22,15 @@ class SplashActivity : ComponentActivity() {
     }
 
     private fun checkUserStatus() {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-
-        if (currentUser != null) {
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(intent)
+        val targetActivity = if (authManager.getAuth().currentUser != null) {
+            MainActivity::class.java
         } else {
-            val intent = Intent(this@SplashActivity, AuthActivity::class.java)
-            startActivity(intent)
+            AuthActivity::class.java
         }
+
+        val intent = Intent(this@SplashActivity, targetActivity)
+        startActivity(intent)
         finish()
     }
+
 }
