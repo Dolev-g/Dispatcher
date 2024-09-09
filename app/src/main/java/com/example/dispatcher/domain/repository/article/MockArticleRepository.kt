@@ -1,4 +1,4 @@
-package com.example.dispatcher.domain.homepage.repo
+package com.example.dispatcher.domain.repository.article
 
 import android.content.Context
 import com.example.dispatcher.R
@@ -19,7 +19,7 @@ class MockArticleRepository(context: Context) : IArticleRepository {
         articles.addAll(mockArticles)
     }
 
-    override fun getArticles(): MutableList<Article> {
+    override fun fetchArticles(): MutableList<Article> {
         return articles
     }
 }

@@ -29,22 +29,10 @@ class ProfileFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        subscribeObservers()
-        setSaveButton()
+
     }
 
-    private fun subscribeObservers() {
-        profileViewModel.getAuthorsLiveData().observe(viewLifecycleOwner) { authors ->
-            binding.textViewProfileFragment.text = authors
-        }
-    }
 
-    private fun setSaveButton() {
-        binding.buttonSaveAuthor.setOnClickListener {
-            val title = binding.addAuthorEditText.text.toString()
-            profileViewModel.addAuthor(title)
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -14,7 +14,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: ArticlesViewModel by viewModels()
+    private val articlesViewModel: ArticlesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,22 +27,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        subscribeObservers()
-        setSaveButton()
+        observeToArticles()
     }
 
-    private fun subscribeObservers() {
-        homeViewModel.getFirstTwoWordsLiveData().observe(viewLifecycleOwner) { twoWords ->
-            binding.textViewHomeFragment.text = twoWords.toString()
-        }
-    }
-
-    private fun setSaveButton() {
-        // Handle the Save button click
-        binding.buttonSave.setOnClickListener {
-            val content = binding.editTextTitle.text.toString()
-            homeViewModel.addFirstTwoWords(content)
+    private fun observeToArticles (){
+        articlesViewModel.articlesLiveData.observe(viewLifecycleOwner) { articlesList ->
+            val articlesText = articlesList.joinToString(separator = "\n") { article ->
+                "Title: ${article.title}, Author: ${article.author}"
+            }
+            binding.textViewHomeFragment.text = articlesText
         }
     }
 
