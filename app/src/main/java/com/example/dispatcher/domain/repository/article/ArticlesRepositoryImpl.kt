@@ -1,7 +1,6 @@
 package com.example.dispatcher.domain.repository.article
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.dispatcher.data.api.ApiConfigManager

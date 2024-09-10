@@ -1,7 +1,6 @@
 package com.example.dispatcher.domain.repository.article
 
 import android.content.Context
-import android.util.Log
 import com.example.dispatcher.R
 import com.example.dispatcher.data.model.news.TopHeadlines
 import com.google.gson.Gson
