@@ -10,5 +10,7 @@
     <string name="reEnterHint">Re-Enter Password</string>
     <string name="LoginButton">LOGIN</string>
     <string name="SignupButton">SIGNUP</string>
-
+    <string name="invalidEmail">"Invalid email format"</string>
+    <string name="invalidPassword">"Invalid password format"</string>
+    <string name="shortPassword">"Password must be at least 7 characters with letters and numbers"</string>
 </resources>

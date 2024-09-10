@@ -22,7 +22,7 @@ class SplashActivity : ComponentActivity() {
     }
 
     private fun checkUserStatus() {
-        val targetActivity = if (authManager.getAuth().currentUser != null) {
+        val targetActivity = if (authManager.isUserExist()) {
             MainActivity::class.java
         } else {
             AuthActivity::class.java

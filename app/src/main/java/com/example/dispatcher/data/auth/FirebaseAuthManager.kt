@@ -12,8 +12,8 @@ class FirebaseAuthManager : IAuthManager {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    override fun getAuth(): FirebaseAuth {
-        return auth
+    override fun isUserExist(): Boolean {
+        return auth.currentUser != null
     }
 
     override fun createAccount(email: String, password: String, callback: (AuthResult) -> Unit) {

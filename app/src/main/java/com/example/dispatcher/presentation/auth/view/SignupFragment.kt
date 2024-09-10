@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.dispatcher.R
+import com.example.dispatcher.common.utils.Utils
 import com.example.dispatcher.databinding.FragmentSignupBinding
 import com.example.dispatcher.domain.auth.EnumNavigate
 import com.example.dispatcher.presentation.auth.AuthViewModel
@@ -58,6 +59,18 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             }
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
+                if (!Utils.isValidEmail(email)) {
+                    binding.emailTextInputLayout.error = getString(R.string.invalidEmail)
+                }
+
+                if(password.length < 7) {
+                    binding.passwordTextInputLayout.error = getString(R.string.shortPassword)
+                }
+
+                if (!Utils.isValidPassword(password)) {
+                    binding.passwordTextInputLayout.error = getString(R.string.invalidPassword)
+                }
+
                 authViewModel.changeLoader(true)
                 authViewModel.createAccount(email, password)
             } else {
