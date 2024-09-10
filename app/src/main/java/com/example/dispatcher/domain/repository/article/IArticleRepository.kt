@@ -1,7 +1,8 @@
 package com.example.dispatcher.domain.repository.article
 
-import com.example.dispatcher.presentation.homepage.model.Article
+import androidx.lifecycle.LiveData
+import com.example.dispatcher.data.model.news.TopHeadlines
 
 interface IArticleRepository {
-    fun fetchArticles(): MutableList<Article>
+    fun fetchArticles(): LiveData<TopHeadlines?>
 }

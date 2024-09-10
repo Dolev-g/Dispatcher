@@ -1,20 +1,44 @@
 package com.example.dispatcher.domain.repository.article
 
 import android.content.Context
-import com.example.dispatcher.presentation.homepage.model.Article
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.dispatcher.data.api.ApiConfigManager
+import com.example.dispatcher.data.api.Secrets
+import com.example.dispatcher.data.api.news.NewsServiceApi
+import com.example.dispatcher.data.model.news.TopHeadlines
+import com.example.dispatcher.data.network.NetworkManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ArticlesRepositoryImpl(context: Context) : IArticleRepository {
 
-    private val articles = mutableListOf<Article>()
+    private val newsServiceApi = NetworkManager.createService(NewsServiceApi::class.java)
 
-    init {
-        articles.add(Article(id = 1, title = "First Mock Article", content = "This is the content of the first mock article.", author = "John Doe"))
-        articles.add(Article(id = 2, title = "Second Mock Article", content = "This is the content of the second mock article.", author = "Jane Smith"))
-        articles.add(Article(id = 3, title = "Third Mock Article", content = "This is the content of the third mock article.", author = "Alice Johnson"))
-        articles.add(Article(id = 4, title = "Fourth Mock Article", content = "This is the content of the fourth mock article.", author = "Bob Brown"))
-    }
+    private val topHeadlinesLiveData = MutableLiveData<TopHeadlines?>()
 
-    override fun fetchArticles(): MutableList<Article> {
-        return articles
+    override fun fetchArticles(): LiveData<TopHeadlines?> {
+        newsServiceApi.getTopHeadlines(ApiConfigManager.getCountryCode(), Secrets.API_KEY).enqueue(object : Callback<TopHeadlines> {
+            override fun onResponse(call: Call<TopHeadlines>, response: Response<TopHeadlines>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { topHeadlines ->
+
+                        topHeadlinesLiveData.postValue(topHeadlines)
+                    } ?: run {
+                        topHeadlinesLiveData.postValue(null)
+                    }
+                } else {
+                    topHeadlinesLiveData.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<TopHeadlines>, t: Throwable) {
+                topHeadlinesLiveData.postValue(null)
+            }
+        })
+
+        return topHeadlinesLiveData
     }
 }

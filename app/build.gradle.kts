@@ -110,7 +110,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
-
+    implementation ("com.ibm.icu:icu4j:71.1")
 
     implementation("androidx.compose.material:material:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.8.2")

@@ -5,6 +5,23 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <EditText
+        android:id="@+id/editTextCountryCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Country Code"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/buttonSubmitCountryCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Country Code"
+        android:layout_marginBottom="16dp"/>
+
     <TextView
         android:id="@+id/textViewHomeFragment"
         android:layout_width="wrap_content"
