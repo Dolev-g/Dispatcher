@@ -1,6 +1,6 @@
 package com.example.dispatcher.data.network
 
-import com.example.dispatcher.data.api.ApiConfigManager
+import com.example.dispatcher.data.api.news.NewsApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder
 
 object NetworkManager {
 
-    private val baseUrl = ApiConfigManager.BASE_URL
+    private val baseUrl = NewsApi.BASE_URL
 
     private val retrofit: Retrofit by lazy {
 

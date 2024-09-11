@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         observeToArticles()
     }
 
-    private fun observeToArticles() {
+    private fun observeToArticles () {
         articlesViewModel.articlesLiveData.observe(viewLifecycleOwner) { topHeadlines ->
             val articlesList = topHeadlines?.articles
 
