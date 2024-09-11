@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.dispatcher.common.utils.displayToast
-import com.example.dispatcher.data.api.ApiConfigManager
 import com.example.dispatcher.databinding.FragmentHomeBinding
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 
@@ -30,7 +28,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeToArticles()
-        setupInputBox()
     }
 
     private fun observeToArticles () {
@@ -47,25 +44,6 @@ class HomeFragment : Fragment() {
             }
 
             binding.textViewHomeFragment.text = articlesText
-        }
-    }
-
-    private fun setupInputBox() {
-        binding.buttonSubmitCountryCode.setOnClickListener {
-            val newCountryCode = binding.editTextCountryCode.text.toString()
-            if (newCountryCode.isNotBlank()) {
-                changeCountryCode(newCountryCode)
-            }
-        }
-    }
-
-    private fun changeCountryCode(newCountryCode: String) {
-        if (ApiConfigManager.isValidCountryCode(newCountryCode)) {
-            ApiConfigManager.updateCountryCode(newCountryCode)
-            articlesViewModel.fetchArticles()
-            displayToast("Country code updated successfully!")
-        } else {
-            displayToast("Invalid country code. Please enter a valid code.")
         }
     }
 
