@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.dispatcher"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -82,6 +82,9 @@ android {
     }
 
     packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
 }
@@ -99,6 +102,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation ("com.google.code.gson:gson:2.8.9")
 
@@ -109,6 +113,8 @@ dependencies {
 
     implementation("com.google.firebase:firebase-crashlytics")
     implementation(libs.play.services.measurement.api)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

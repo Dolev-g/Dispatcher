@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorMainText">#FFFFFF</color>
+    <color name="colorLogin">#F8F8FF</color>
+    <color name="headlineAuthColor">#5A5A89</color>
+    <color name="primaryButton">#0058B9</color>
+    <color name="editTextBorder">#D9DBE9</color>
 </resources>
+

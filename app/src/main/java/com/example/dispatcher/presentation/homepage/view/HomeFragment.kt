@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.dispatcher.databinding.FragmentHomeBinding
-import com.example.dispatcher.presentation.homepage.viewModel.HomeViewModel
+import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: ArticlesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

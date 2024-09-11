@@ -9,7 +9,7 @@ import com.example.dispatcher.presentation.homepage.model.Article
 import com.example.dispatcher.domain.homepage.repo.EnumArticleType
 import com.example.dispatcher.domain.homepage.repo.IArticleRepository
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
     private val articleRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)

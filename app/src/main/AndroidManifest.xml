@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dispatcher"
         tools:targetApi="31">
-
+        <activity
+            android:name=".presentation.auth.view.AuthActivity"
+            android:exported="false"
+            android:label="@string/title_activity_auth"
+            android:theme="@style/Theme.Dispatcher" />
         <activity
             android:name=".common.base.SplashActivity"
             android:exported="true"
@@ -20,16 +24,15 @@
             android:theme="@style/Theme.Dispatcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".common.base.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Dispatcher" />
-
     </application>
 
 </manifest>
