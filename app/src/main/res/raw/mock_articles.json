@@ -1,20 +1,71 @@
-[
-  {
-    "id": 1,
-    "title": "First Article",
-    "content": "This is the content of the first article.",
-    "author": "Author One"
-  },
-  {
-    "id": 2,
-    "title": "Second Article",
-    "content": "Hello world",
-    "author": "Author Two"
-  },
-  {
-    "id": 3,
-    "title": "Third Article",
-    "content": "world hello",
-    "author": "Author Three"
-  }
-]
+{
+  "status": "ok",
+  "totalResults": 36,
+  "articles": [
+    {
+      "source": {
+        "id": "espn",
+        "name": "ESPN"
+      },
+      "author": "Rich Cimini",
+      "title": "'No excuses': Rodgers rusty, Jets open with loss - ESPN",
+      "description": "Quarterback Aaron Rodgers, who tore his left Achilles on the fourth snap of the 2023 season, saw his first extensive action in 20 months on Monday night, finishing with 167 yards through the air, in the New York Jets' loss to the San Francisco 49ers.",
+      "url": "https://www.espn.com/nfl/story/_/id/41201967/mistakes-plague-new-york-jets-aaron-rodgers-return",
+      "urlToImage": "https://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F0910%2Fr1384462_1296x729_16%2D9.jpg",
+      "publishedAt": "2024-09-10T05:34:00Z",
+      "content": "SANTA CLARA, Calif. -- This time, New York Jets quarterback Aaron Rodgers completed a pass on his fourth snap of the season -- a shovel to running back Breece Hall, who promptly fumbled."
+    },
+    {
+      "source": {
+        "id": "associated-press",
+        "name": "Associated Press"
+      },
+      "author": "WAFAA SHURAFA, SAMY MAGDY",
+      "title": "An Israeli strike on a Gaza humanitarian zone tent camp kills at least 40 people, Palestinians say - The Associated Press",
+      "description": "Palestinian officials say an Israeli strike on a crowded tent camp housing Palestinians displaced by the war in Gaza has killed at least 40 people and wounded 60 others.",
+      "url": "https://apnews.com/article/israel-palestinians-hamas-war-news-september-10-2024-3e1435277993d03de61f4e1c7494deec",
+      "urlToImage": "https://dims.apnews.com/dims4/default/01fbecc/2147483647/strip/true/crop/4724x2657+0+246/resize/1440x810!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Ff5%2F78%2F5bf11222eb5b4431de5df5d331a5%2F05f9eacf16a54f7a82ce5c5bdf2e9052",
+      "publishedAt": "2024-09-10T05:23:00Z",
+      "content": "An Israeli strike on a crowded tent camp housing Palestinians displaced by the war in Gaza killed at least 40 people and wounded 60 others early Tuesday."
+    },
+    {
+      "source": {
+        "id": "reuters",
+        "name": "Reuters"
+      },
+      "author": "Khanh Vu, Phuong Nguyen",
+      "title": "Floods inundate north Vietnam as Typhoon Yagi death toll climbs - Reuters",
+      "description": "Severe floods are expected to inundate parts of Vietnam's north, including the capital Hanoi.",
+      "url": "https://www.reuters.com/world/asia-pacific/death-toll-vietnam-typhoon-yagi-rises-58-2024-09-10/",
+      "urlToImage": "https://www.reuters.com/resizer/v2/XZGBB7EZNVKLND7SU7UUKCO2DE.jpg?auth=4fdc6a753083c93e3a617b7dd68237c4cbdb098a8ffc1335cad6dddf834db2ce&height=1005&width=1920&quality=80&smart=true",
+      "publishedAt": "2024-09-10T05:15:25Z",
+      "content": null
+    },
+    {
+      "source": {
+        "id": "cnn",
+        "name": "CNN"
+      },
+      "author": "Christopher Lamb, Helen Regan, Kathleen Magramo",
+      "title": "Pope Francis gets rockstar welcome in the world’s most Catholic nation outside of Vatican City - CNN",
+      "description": "Pope Francis received a rapturous welcome from the tiny Southeast Asian nation of East Timor.",
+      "url": "https://www.cnn.com/2024/09/09/asia/pope-francis-east-timor-intl-hnk/index.html",
+      "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2170303069.jpg?c=16x9&q=w_800,c_fill",
+      "publishedAt": "2024-09-10T04:46:00Z",
+      "content": "Pope Francis received a rapturous welcome from the tiny Southeast Asian nation of East Timor."
+    },
+    {
+      "source": {
+        "id": "reuters",
+        "name": "Reuters"
+      },
+      "author": "Bill Trott, Lisa Richwine",
+      "title": "James Earl Jones, renowned actor and voice of Darth Vader, dies at 93 - Reuters.com",
+      "description": "American actor James Earl Jones, an imposing stage and screen presence, died on Monday at the age of 93.",
+      "url": "https://www.reuters.com/world/us/james-earl-jones-voice-darth-vader-dies-93-2024-09-09/",
+      "urlToImage": "https://www.reuters.com/resizer/v2/7TYIJUXQXNPGVNJJ56VHHCR34E.jpg?auth=c569c0d4f84b32d463fd27d50db7d0e8058b3b12fb9809fdafabf6b82c214f5b&height=1005&width=1920&quality=80&smart=true",
+      "publishedAt": "2024-09-10T04:35:00Z",
+      "content": null
+    }
+  ]
+}

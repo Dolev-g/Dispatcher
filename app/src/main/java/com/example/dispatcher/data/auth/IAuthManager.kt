@@ -6,5 +6,4 @@ interface IAuthManager {
     fun isUserExist(): Boolean
     fun createAccount(email: String, password: String, callback: (AuthResult) -> Unit)
     fun checkLogin(email: String, password: String, callback: (AuthResult) -> Unit)
-
 }

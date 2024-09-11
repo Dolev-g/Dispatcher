@@ -29,22 +29,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeObservers()
-        setSaveButton()
     }
 
-    private fun subscribeObservers() {
-        favoritesViewModel.getFavoritesLiveData().observe(viewLifecycleOwner) { titles ->
-            binding.textViewFavoritesFragment.text = titles
-        }
-    }
 
-    private fun setSaveButton() {
-        binding.buttonSaveTitle.setOnClickListener {
-            val title = binding.addTitleEditText.text.toString()
-            favoritesViewModel.addTitle(title)
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

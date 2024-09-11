@@ -3,44 +3,24 @@ package com.example.dispatcher.presentation.homepage.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.dispatcher.domain.homepage.repo.ArticleRepoFactory
-import com.example.dispatcher.presentation.homepage.model.Article
-import com.example.dispatcher.domain.homepage.repo.EnumArticleType
-import com.example.dispatcher.domain.homepage.repo.IArticleRepository
+import com.example.dispatcher.domain.repository.article.ArticleRepoFactory
+import com.example.dispatcher.data.model.news.TopHeadlines
+import com.example.dispatcher.domain.repository.article.EnumArticleType
+import com.example.dispatcher.domain.repository.article.IArticleRepository
 
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
-    private val articleRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
-    private var articlesList: MutableList<Article> = articleRepository.getArticles()
+    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.SERVER)
 
-    private val firstTwoWordsLiveData = MutableLiveData<List<String>>()
+    val articlesLiveData: LiveData<TopHeadlines?>
 
     init {
-        updateFirstTwoWordsArticles()
+        articlesLiveData = fetchArticles()
     }
 
-    fun addFirstTwoWords(content: String) {
-        val firstTwoWords = content.split(" ").take(2).joinToString(" ")
-        val currentList = firstTwoWordsLiveData.value ?: emptyList()
-        val updatedList = currentList + firstTwoWords
-        firstTwoWordsLiveData.value = updatedList
+    fun fetchArticles(): LiveData<TopHeadlines?> {
+        return articlesRepository.fetchArticles()
     }
-
-    fun getFirstTwoWordsLiveData(): LiveData<List<String>> {
-        return firstTwoWordsLiveData
-    }
-
-    private fun updateFirstTwoWordsArticles() {
-        val truncatedArticles = mutableListOf<String>()
-
-        articlesList.forEach { article ->
-            val firstTwoWords = article.content.split(" ").take(2).joinToString(" ")
-            truncatedArticles.add(firstTwoWords)
-        }
-
-        firstTwoWordsLiveData.value = truncatedArticles
-    }
-
 }
+
