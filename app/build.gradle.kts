@@ -120,6 +120,7 @@ dependencies {
     implementation(libs.play.services.measurement.api)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
+    implementation("androidx.cardview:cardview:1.0.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
