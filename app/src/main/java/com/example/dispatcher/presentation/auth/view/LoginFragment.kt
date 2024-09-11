@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.dispatcher.R
+import com.example.dispatcher.common.utils.Utils
 import com.example.dispatcher.databinding.FragmentLoginBinding
 import com.example.dispatcher.domain.auth.EnumNavigate
 import com.example.dispatcher.presentation.auth.AuthViewModel
@@ -39,11 +40,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (result.success) {
                 Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
                 authViewModel.changeStage(EnumNavigate.MAIN)
-                authViewModel.changeLoader(false)
             } else {
-                authViewModel.changeLoader(false)
                 binding.emailTextInputLayout.error = result.error
             }
+            authViewModel.changeLoader(false)
         }
     }
 
@@ -63,22 +63,23 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             clearErrors()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                val emailPattern = Patterns.EMAIL_ADDRESS
-                val passwordPattern = Regex("^(?=.*[0-9])(?=.*[a-zA-Z]).{7,}$")
-
-                if (!emailPattern.matcher(email).matches()) {
-                    binding.emailTextInputLayout.error = "Invalid email format"
+                if (!Utils.isValidEmail(email)) {
+                    binding.emailTextInputLayout.error = getString(R.string.invalidEmail)
                 }
 
-                if (!password.matches(passwordPattern)) {
-                    binding.emailTextInputLayout.error = "Password must be at least 7 characters with letters and numbers"
+                if(password.length < 7) {
+                    binding.passwordTextInputLayout.error = getString(R.string.shortPassword)
+                }
+
+                if (!Utils.isValidPassword(password)) {
+                    binding.passwordTextInputLayout.error = getString(R.string.invalidPassword)
                 }
 
                 authViewModel.changeLoader(true)
                 authViewModel.checkLogin(email, password)
-
-            } else {
-                binding.emailTextInputLayout.error = "Please enter a valid email"
+            }
+            else {
+                binding.emailTextInputLayout.error = getString(R.string.invalidEmail)
             }
         }
     }
