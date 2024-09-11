@@ -1,18 +1,24 @@
-package com.example.dispatcher.common.base
+package com.example.dispatcher.presentation.main.view
 
 import android.os.Bundle
+import android.view.View
+import android.widget.RelativeLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.FirebaseCrashlyticsManager
+import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.ActivityMainBinding
 import com.example.dispatcher.presentation.favorites.view.FavoritesFragment
 import com.example.dispatcher.presentation.homepage.view.HomeFragment
+import com.example.dispatcher.presentation.main.MainViewModel
 import com.example.dispatcher.presentation.profile.view.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +26,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Firebase Crashlytics Manager
         FirebaseCrashlyticsManager.initialize(this)
 
-        // Set the initial fragment and tab image
         replaceFragment(HomeFragment())
         selectTab(R.id.tab_home)
 
@@ -41,6 +45,11 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(ProfileFragment())
             selectTab(R.id.tab_profile)
         }
+
+        subscribeToSearchStage()
+        binding.customHeaderView.setViewModel(mainViewModel)
+        binding.searchView.setViewModel(mainViewModel)
+
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -54,5 +63,25 @@ class MainActivity : AppCompatActivity() {
         binding.tabHome.isSelected = selectedTabId == R.id.tab_home
         binding.tabFavorites.isSelected = selectedTabId == R.id.tab_favorites
         binding.tabProfile.isSelected = selectedTabId == R.id.tab_profile
+    }
+
+    private fun subscribeToSearchStage() {
+        mainViewModel.searchStage.observe(this) { stage ->
+            if (stage) {
+                binding.customHeaderView.visibility = View.GONE
+                binding.searchView.visibility = View.VISIBLE
+
+                val params = binding.fragmentDisplay.layoutParams as RelativeLayout.LayoutParams
+                params.addRule(RelativeLayout.BELOW, R.id.searchView)
+                binding.fragmentDisplay.layoutParams = params
+            } else {
+                binding.customHeaderView.visibility = View.VISIBLE
+                binding.searchView.visibility = View.GONE
+
+                val params = binding.fragmentDisplay.layoutParams as RelativeLayout.LayoutParams
+                params.addRule(RelativeLayout.BELOW, R.id.customHeaderView)
+                binding.fragmentDisplay.layoutParams = params
+            }
+        }
     }
 }

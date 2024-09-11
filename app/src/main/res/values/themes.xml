@@ -87,4 +87,13 @@
         <item name="android:textColor">@color/home_title</item>
     </style>
 
+    <style name="searchBox" >
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:lineSpacingExtra">22sp</item>
+        <item name="android:textColor">@color/search_hint</item>
+        <item name="android:letterSpacing">0.025</item>
+    </style>
+
 </resources>

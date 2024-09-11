@@ -3,17 +3,17 @@ package com.example.dispatcher.presentation.common.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.RelativeLayout
-import com.example.dispatcher.databinding.ViewHeaderBinding
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.dispatcher.databinding.SearchHeaderBinding
 import com.example.dispatcher.presentation.main.MainViewModel
 
-class HeaderView @JvmOverloads constructor(
+class SearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding: ViewHeaderBinding = ViewHeaderBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding: SearchHeaderBinding = SearchHeaderBinding.inflate(LayoutInflater.from(context), this, true)
     private var mainViewModel: MainViewModel? = null
 
     init {
@@ -21,11 +21,11 @@ class HeaderView @JvmOverloads constructor(
     }
 
     private fun setListeners() {
-        binding.headerBellIcon.setOnClickListener {
+        binding.backImg.setOnClickListener {
+            mainViewModel?.changeSearchStage(false)
         }
 
         binding.headerSearchIcon.setOnClickListener {
-            mainViewModel?.changeSearchStage(true)
         }
     }
 

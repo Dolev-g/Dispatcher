@@ -14,4 +14,5 @@
     <string name="invalidPassword">"Invalid password format"</string>
     <string name="shortPassword">"Password must be at least 7 characters with letters and numbers"</string>
     <string name="homeHeadline">Top Headlines in USA</string>
+    <string name="searchHint">Search</string>
 </resources>

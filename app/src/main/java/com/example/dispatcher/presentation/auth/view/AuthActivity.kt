@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.R
-import com.example.dispatcher.common.base.MainActivity
+import com.example.dispatcher.presentation.main.view.MainActivity
 import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.ActivityAuthBinding
 import com.example.dispatcher.domain.auth.EnumNavigate

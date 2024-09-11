@@ -11,5 +11,6 @@
     <color name="card_author">#5A5A8980</color>
     <color name="card_title">#14142B</color>
     <color name="home_title">#262146</color>
+    <color name="search_hint">#805A5A89</color>
 </resources>
 
