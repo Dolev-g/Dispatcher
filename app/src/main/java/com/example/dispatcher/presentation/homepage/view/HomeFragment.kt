@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentHomeBinding
-import com.example.dispatcher.presentation.homepage.model.ArticleView
 import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
@@ -37,25 +36,10 @@ class HomeFragment : Fragment() {
         observeToArticles()
     }
 
-    private fun observeToArticles () {
-        articlesViewModel.articlesLiveData.observe(viewLifecycleOwner) { topHeadlines ->
-            val articlesList = topHeadlines?.articles
-
-            if (articlesList != null) {
-                val articlesViewList = mutableListOf<ArticleView>()
-
-                articlesList.forEach { article ->
-                    val articleView = ArticleView(
-                        title = article.title,
-                        description = article.description ?: "No description available",
-                        urlToImage = article.urlToImage ?: "default_image_url",
-                        author = article.author ?: "unknown author",
-                        publishedAt = article.publishedAt ?: "unknown data"
-                    )
-                    articlesViewList.add(articleView)
-                }
-
-                articleAdapter.submitList(articlesViewList)
+    private fun observeToArticles() {
+        articlesViewModel.articlesLiveData.observe(viewLifecycleOwner) { articles ->
+            if (articles != null) {
+                articleAdapter.submitList(articles)
             }
         }
     }
