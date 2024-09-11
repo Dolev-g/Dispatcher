@@ -11,7 +11,7 @@ import com.example.dispatcher.domain.repository.article.IArticleRepository
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
-    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.SERVER)
+    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
 
     val articlesLiveData: LiveData<TopHeadlines?>
 
