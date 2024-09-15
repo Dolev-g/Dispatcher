@@ -38,22 +38,29 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.searchView.setArticlesViewModel(articlesViewModel)
 
         binding.resultsLayout.visibility = View.GONE
+        binding.notFoundLayout.visibility = View.GONE
         observeToSearchArticles()
         addAdapter()
     }
 
     private fun observeToSearchArticles() {
         articlesViewModel.searchArticlesLiveData.observe(viewLifecycleOwner) { articles ->
+
             if (articles != null) {
-                articleAdapter.submitList(articles)
-                binding.resultsLayout.visibility = View.VISIBLE
-                binding.recentSearchesLayout.visibility = View.GONE
+                if (articles.size != 0) {
+                    articleAdapter.submitList(articles)
+                    binding.resultsLayout.visibility = View.VISIBLE
+                    binding.recentSearchesLayout.visibility = View.GONE
+                }
+                else {
+                    binding.notFoundLayout.visibility = View.VISIBLE
+                }
             }
         }
     }
 
     private fun addAdapter() {
-        val recyclerView = binding.recyclerViewHomeFragment
+        val recyclerView = binding.recyclerViewSearch
         articleAdapter = ArticleAdapter()
 
         recyclerView.adapter = articleAdapter

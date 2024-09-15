@@ -18,5 +18,6 @@
     <string name="sortBy">Sort by</string>
     <string name="RecentSearch">RECENT SEARCHES</string>
     <string name="clear">clear</string>
+    <string name="no_matches_for_query">We couldn’t find any matches for your query</string>
 
 </resources>
