@@ -1,6 +1,7 @@
 package com.example.dispatcher.presentation.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,5 +17,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun changeSearchStage(newState: Boolean) {
         _searchStage.value = newState
+
     }
 }

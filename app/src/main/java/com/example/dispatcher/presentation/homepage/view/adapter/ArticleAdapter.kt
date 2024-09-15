@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.dispatcher.R
 import com.example.dispatcher.databinding.AdapterArticleItemBinding
 import com.example.dispatcher.presentation.homepage.model.ArticleView
 
@@ -21,8 +22,7 @@ class ArticleAdapter : ListAdapter<ArticleView, ArticleAdapter.ArticleViewHolder
 
             Glide.with(binding.root.context)
                 .load(article.urlToImage)
-                 //.placeholder(R.drawable.placeholder)
-                //.error(R.drawable.error_image)
+                 .placeholder(R.drawable.placeholder)
                 .into(binding.headerImage)
 
             binding.root.setOnClickListener {

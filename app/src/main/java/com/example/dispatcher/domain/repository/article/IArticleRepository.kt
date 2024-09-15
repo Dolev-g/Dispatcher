@@ -5,4 +5,5 @@ import com.example.dispatcher.data.model.news.TopHeadlines
 
 interface IArticleRepository {
     fun fetchArticles(): LiveData<TopHeadlines?>
+    fun fetchSearchArticles(q:String): LiveData<TopHeadlines?>
 }

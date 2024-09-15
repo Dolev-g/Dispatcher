@@ -15,4 +15,8 @@
     <string name="shortPassword">"Password must be at least 7 characters with letters and numbers"</string>
     <string name="homeHeadline">Top Headlines in USA</string>
     <string name="searchHint">Search</string>
+    <string name="sortBy">Sort by</string>
+    <string name="RecentSearch">RECENT SEARCHES</string>
+    <string name="clear">clear</string>
+
 </resources>

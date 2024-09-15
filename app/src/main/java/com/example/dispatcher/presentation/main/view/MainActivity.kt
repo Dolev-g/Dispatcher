@@ -1,6 +1,7 @@
 package com.example.dispatcher.presentation.main.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import com.example.dispatcher.presentation.favorites.view.FavoritesFragment
 import com.example.dispatcher.presentation.homepage.view.HomeFragment
 import com.example.dispatcher.presentation.main.MainViewModel
 import com.example.dispatcher.presentation.profile.view.ProfileFragment
+import com.example.dispatcher.presentation.search.view.SearchFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
         subscribeToSearchStage()
         binding.customHeaderView.setViewModel(mainViewModel)
-        binding.searchView.setViewModel(mainViewModel)
 
     }
 
@@ -67,20 +68,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeToSearchStage() {
         mainViewModel.searchStage.observe(this) { stage ->
+
             if (stage) {
+                replaceFragment(SearchFragment())
                 binding.customHeaderView.visibility = View.GONE
-                binding.searchView.visibility = View.VISIBLE
+                binding.tabsLayout.visibility = View.GONE
 
-                val params = binding.fragmentDisplay.layoutParams as RelativeLayout.LayoutParams
-                params.addRule(RelativeLayout.BELOW, R.id.searchView)
-                binding.fragmentDisplay.layoutParams = params
+
             } else {
+                replaceFragment(HomeFragment())
                 binding.customHeaderView.visibility = View.VISIBLE
-                binding.searchView.visibility = View.GONE
+                binding.tabsLayout.visibility = View.VISIBLE
 
-                val params = binding.fragmentDisplay.layoutParams as RelativeLayout.LayoutParams
-                params.addRule(RelativeLayout.BELOW, R.id.customHeaderView)
-                binding.fragmentDisplay.layoutParams = params
             }
         }
     }
