@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.dispatcher.domain.repository.article.ArticleRepoFactory
 import com.example.dispatcher.domain.repository.article.EnumArticleType
 import com.example.dispatcher.domain.repository.article.IArticleRepository
 import com.example.dispatcher.presentation.homepage.model.ArticleView
+import kotlinx.coroutines.launch
 
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -25,44 +27,38 @@ class ArticlesViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun fetchArticles() {
-        articlesRepository.fetchArticles().observeForever { topHeadlines ->
-            val articleNewList = mutableListOf<ArticleView>()
+        viewModelScope.launch {
+            val topHeadlines = articlesRepository.fetchArticles()
 
-            topHeadlines?.articles?.forEach { article ->
-                val newArticle = ArticleView(
+            val articleNewList = topHeadlines?.articles?.map { article ->
+                ArticleView(
                     title = article.title,
                     description = article.description ?: "No description available",
                     urlToImage = article.urlToImage ?: "default_image_url",
                     author = article.author ?: "unknown author",
                     publishedAt = article.publishedAt ?: "unknown date"
                 )
-                articleNewList.add(newArticle)
-            }
+            } ?: emptyList()
 
             _articlesLiveData.postValue(articleNewList)
         }
     }
 
-    fun fetchSearchArticles(q:String) {
-        articlesRepository.fetchSearchArticles(q).observeForever { topHeadlines ->
-            val articleNewList = mutableListOf<ArticleView>()
+    fun fetchSearchArticles(q: String) {
+        viewModelScope.launch {
+            val topHeadlines = articlesRepository.fetchSearchArticles(q)
 
-            topHeadlines?.articles?.forEach { article ->
-                val newArticle = ArticleView(
+            val articleNewList = topHeadlines?.articles?.map { article ->
+                ArticleView(
                     title = article.title,
                     description = article.description ?: "No description available",
                     urlToImage = article.urlToImage ?: "default_image_url",
                     author = article.author ?: "unknown author",
                     publishedAt = article.publishedAt ?: "unknown date"
                 )
-                articleNewList.add(newArticle)
-            }
+            } ?: emptyList()
 
             _searchArticlesLiveData.postValue(articleNewList)
         }
     }
-
-
 }
-
-
