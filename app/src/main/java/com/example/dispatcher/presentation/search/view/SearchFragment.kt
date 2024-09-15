@@ -14,14 +14,20 @@ import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.MainViewModel
+import com.example.dispatcher.presentation.search.view.adapter.SearchHistoryAdapter
+import com.example.dispatcher.presentation.search.viewModel.SearchViewModel
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+
     private val mainViewModel: MainViewModel by activityViewModels()
     private val articlesViewModel: ArticlesViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by activityViewModels()
+
     private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var searchHistoryAdapter: SearchHistoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,11 +42,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchView.setViewModel(mainViewModel)
         binding.searchView.setArticlesViewModel(articlesViewModel)
+        binding.searchView.setSearchViewModel(searchViewModel)
 
         binding.resultsLayout.visibility = View.GONE
         binding.notFoundLayout.visibility = View.GONE
         observeToSearchArticles()
         addAdapter()
+        addSearchHistoryAdapter()
+        observeSearchHistory()
     }
 
     private fun observeToSearchArticles() {
@@ -59,6 +68,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    private fun observeSearchHistory() {
+        searchViewModel.searchHistory.observe(viewLifecycleOwner) { queries ->
+            if (queries != null) {
+                searchHistoryAdapter.updateSearchHistory(queries)
+            }
+        }
+    }
+
     private fun addAdapter() {
         val recyclerView = binding.recyclerViewSearch
         articleAdapter = ArticleAdapter()
@@ -68,6 +85,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_item_spacing)
         recyclerView.addItemDecoration(TopSpacingItemDecoration(spacingInPixels))
+    }
+
+    private fun addSearchHistoryAdapter() {
+        val recyclerView = binding.recyclerViewSearchHistory
+        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel)
+
+        recyclerView.adapter = searchHistoryAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {

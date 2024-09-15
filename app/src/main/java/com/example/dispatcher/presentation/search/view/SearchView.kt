@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.viewModels
 import com.example.dispatcher.databinding.SearchHeaderBinding
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.MainViewModel
+import com.example.dispatcher.presentation.search.viewModel.SearchViewModel
 
 class SearchView @JvmOverloads constructor(
     context: Context,
@@ -21,6 +23,7 @@ class SearchView @JvmOverloads constructor(
     private val binding: SearchHeaderBinding = SearchHeaderBinding.inflate(LayoutInflater.from(context), this, true)
     private var mainViewModel: MainViewModel? = null
     private var articlesViewModel: ArticlesViewModel? = null
+    private var searchViewModel: SearchViewModel? = null
 
     init {
         setListeners()
@@ -46,7 +49,7 @@ class SearchView @JvmOverloads constructor(
 
     private fun searchQuery() {
         val query = binding.searchEditText.text.toString()
-        Log.d("SearchView", "Search query: $query")
+        searchViewModel?.addSearchQuery(query)
         articlesViewModel?.fetchSearchArticles(query)
     }
 
@@ -57,5 +60,9 @@ class SearchView @JvmOverloads constructor(
 
     fun setArticlesViewModel(viewModel: ArticlesViewModel) {
         this.articlesViewModel = viewModel
+    }
+
+    fun setSearchViewModel(viewModel: SearchViewModel) {
+        this.searchViewModel = viewModel
     }
 }

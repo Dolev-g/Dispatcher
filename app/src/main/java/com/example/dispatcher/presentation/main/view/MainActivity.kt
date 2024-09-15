@@ -1,15 +1,12 @@
 package com.example.dispatcher.presentation.main.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.RelativeLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.FirebaseCrashlyticsManager
-import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.ActivityMainBinding
 import com.example.dispatcher.presentation.favorites.view.FavoritesFragment
 import com.example.dispatcher.presentation.homepage.view.HomeFragment
@@ -73,7 +70,6 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(SearchFragment())
                 binding.customHeaderView.visibility = View.GONE
                 binding.tabsLayout.visibility = View.GONE
-
 
             } else {
                 replaceFragment(HomeFragment())
