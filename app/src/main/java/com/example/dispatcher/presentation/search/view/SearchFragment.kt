@@ -43,6 +43,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.searchView.setViewModel(mainViewModel)
         binding.searchView.setArticlesViewModel(articlesViewModel)
         binding.searchView.setSearchViewModel(searchViewModel)
+        binding.filter.setViewModel(mainViewModel)
 
         binding.resultsLayout.visibility = View.GONE
         binding.notFoundLayout.visibility = View.GONE

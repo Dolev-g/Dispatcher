@@ -18,6 +18,12 @@ class FilterView @JvmOverloads constructor(
     private var mainViewModel: MainViewModel? = null
 
     init {
+        binding.filterIcon.setOnClickListener {
+            mainViewModel?.changeFilterDrawerDisplay(true)
+        }
+    }
 
+    fun setViewModel(viewModel: MainViewModel) {
+        this.mainViewModel = viewModel
     }
 }

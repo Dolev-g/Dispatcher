@@ -11,12 +11,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _searchStage = MutableLiveData<Boolean>()
     val searchStage: LiveData<Boolean> get() = _searchStage
 
+    private val _filterDrawerDisplay = MutableLiveData<Boolean>()
+    val filterDrawerDisplay: LiveData<Boolean> get() = _filterDrawerDisplay
+
     init {
         _searchStage.value = false
+        _filterDrawerDisplay.value = false
     }
 
     fun changeSearchStage(newState: Boolean) {
         _searchStage.value = newState
+    }
 
+    fun changeFilterDrawerDisplay(newState: Boolean) {
+        _filterDrawerDisplay.value = newState
     }
 }

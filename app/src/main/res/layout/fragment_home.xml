@@ -6,6 +6,7 @@
     >
 
     <com.example.dispatcher.presentation.common.view.FilterView
+        android:id="@+id/homeFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

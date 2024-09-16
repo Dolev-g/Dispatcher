@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.FirebaseCrashlyticsManager
@@ -18,12 +20,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var drawerLayout: DrawerLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        drawerLayout = binding.drawerLayout
 
         FirebaseCrashlyticsManager.initialize(this)
 
@@ -46,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         subscribeToSearchStage()
+        subscribeToFilterDrawerDisplay()
         binding.customHeaderView.setViewModel(mainViewModel)
 
     }
@@ -76,6 +82,19 @@ class MainActivity : AppCompatActivity() {
                 binding.customHeaderView.visibility = View.VISIBLE
                 binding.tabsLayout.visibility = View.VISIBLE
 
+            }
+        }
+    }
+
+    private fun subscribeToFilterDrawerDisplay() {
+        mainViewModel.filterDrawerDisplay.observe(this) { stage ->
+
+            if (stage) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.closeDrawer(GravityCompat.END)
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.END)
+                }
             }
         }
     }

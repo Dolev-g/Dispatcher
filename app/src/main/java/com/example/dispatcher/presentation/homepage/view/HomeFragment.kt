@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
@@ -12,6 +13,7 @@ import com.example.dispatcher.databinding.FragmentHomeBinding
 import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
+import com.example.dispatcher.presentation.main.MainViewModel
 
 class HomeFragment : Fragment() {
 
@@ -20,6 +22,7 @@ class HomeFragment : Fragment() {
 
     private val articlesViewModel: ArticlesViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +37,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addAdapter()
         observeToArticles()
+        binding.homeFilter.setViewModel(mainViewModel)
     }
 
     private fun observeToArticles() {

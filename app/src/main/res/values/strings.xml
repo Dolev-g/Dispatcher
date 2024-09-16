@@ -25,5 +25,6 @@
     <string name="language">Language</string>
     <string name="dates">Dates</string>
     <string name="placeHolder">PH</string>
+    <string name="btnFilter">VIEW RESULTS</string>
 
 </resources>
