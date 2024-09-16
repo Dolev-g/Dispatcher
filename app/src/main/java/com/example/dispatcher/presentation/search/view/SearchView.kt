@@ -2,13 +2,13 @@ package com.example.dispatcher.presentation.search.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.example.dispatcher.databinding.SearchHeaderBinding
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.MainViewModel
@@ -27,6 +27,9 @@ class SearchView @JvmOverloads constructor(
 
     init {
         setListeners()
+        binding.headerSearchIcon.visibility = View.GONE
+        binding.headerXicon.visibility = View.GONE
+        binding.searchTextView.visibility = View.GONE
     }
 
     private fun setListeners() {
@@ -34,8 +37,13 @@ class SearchView @JvmOverloads constructor(
             mainViewModel?.changeSearchStage(false)
         }
 
-        binding.headerSearchIcon.setOnClickListener {
-            searchQuery()
+        binding.searchEditText.addTextChangedListener { text ->
+            if (text.isNullOrEmpty()) {
+                binding.headerXicon.visibility = View.GONE
+                binding.headerSearchIcon.visibility = View.GONE
+            } else {
+                binding.headerXicon.visibility = View.VISIBLE
+            }
         }
 
         binding.searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
@@ -45,14 +53,25 @@ class SearchView @JvmOverloads constructor(
             }
             false
         })
+
+        binding.headerXicon.setOnClickListener {
+            binding.searchEditText.text?.clear()
+        }
     }
 
     private fun searchQuery() {
         val query = binding.searchEditText.text.toString()
-        searchViewModel?.addSearchQuery(query)
-        articlesViewModel?.fetchSearchArticles(query)
-    }
+        if (query.isNotEmpty()) {
+            searchViewModel?.addSearchQuery(query)
+            articlesViewModel?.fetchSearchArticles(query)
 
+            binding.searchEditText.visibility = View.GONE
+            binding.searchTextView.visibility = View.VISIBLE
+            binding.headerSearchIcon.visibility = View.VISIBLE
+            binding.headerXicon.visibility = View.GONE
+            binding.searchTextView.text = "\"$query\""
+        }
+    }
 
     fun setViewModel(viewModel: MainViewModel) {
         this.mainViewModel = viewModel
@@ -66,3 +85,4 @@ class SearchView @JvmOverloads constructor(
         this.searchViewModel = viewModel
     }
 }
+

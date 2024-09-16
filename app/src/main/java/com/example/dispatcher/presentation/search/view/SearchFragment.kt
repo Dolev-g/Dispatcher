@@ -50,6 +50,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         addAdapter()
         addSearchHistoryAdapter()
         observeSearchHistory()
+
+        setListeners()
     }
 
     private fun observeToSearchArticles() {
@@ -63,6 +65,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
                 else {
                     binding.notFoundLayout.visibility = View.VISIBLE
+                    binding.recentSearchesLayout.visibility = View.GONE
                 }
             }
         }
@@ -93,6 +96,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         recyclerView.adapter = searchHistoryAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun setListeners() {
+        binding.clearButton.setOnClickListener {
+            searchViewModel.clearSearchHistory()
+        }
     }
 
     override fun onDestroyView() {
