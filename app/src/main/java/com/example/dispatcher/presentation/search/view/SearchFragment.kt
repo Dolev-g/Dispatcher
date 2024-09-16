@@ -92,7 +92,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun addSearchHistoryAdapter() {
         val recyclerView = binding.recyclerViewSearchHistory
-        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel)
+        val searchView = binding.searchView
+        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel, searchView)
 
         recyclerView.adapter = searchHistoryAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

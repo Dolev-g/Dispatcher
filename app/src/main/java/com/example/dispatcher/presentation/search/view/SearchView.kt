@@ -48,7 +48,8 @@ class SearchView @JvmOverloads constructor(
 
         binding.searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
-                searchQuery()
+                val query = binding.searchEditText.text.toString()
+                searchQuery(query)
                 return@OnEditorActionListener true
             }
             false
@@ -59,17 +60,16 @@ class SearchView @JvmOverloads constructor(
         }
     }
 
-    private fun searchQuery() {
-        val query = binding.searchEditText.text.toString()
-        if (query.isNotEmpty()) {
-            searchViewModel?.addSearchQuery(query)
-            articlesViewModel?.fetchSearchArticles(query)
+     fun searchQuery(q: String) {
+        if (q.isNotEmpty()) {
+            searchViewModel?.addSearchQuery(q)
+            articlesViewModel?.fetchSearchArticles(q)
 
             binding.searchEditText.visibility = View.GONE
             binding.searchTextView.visibility = View.VISIBLE
             binding.headerSearchIcon.visibility = View.VISIBLE
             binding.headerXicon.visibility = View.GONE
-            binding.searchTextView.text = "\"$query\""
+            binding.searchTextView.text = "\"$q\""
         }
     }
 
