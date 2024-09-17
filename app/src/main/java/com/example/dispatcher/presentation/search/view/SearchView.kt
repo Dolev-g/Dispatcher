@@ -4,14 +4,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
+import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.SearchHeaderBinding
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
-import com.example.dispatcher.presentation.main.MainViewModel
 import com.example.dispatcher.presentation.search.viewModel.SearchViewModel
 
 class SearchView @JvmOverloads constructor(
@@ -21,28 +21,24 @@ class SearchView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding: SearchHeaderBinding = SearchHeaderBinding.inflate(LayoutInflater.from(context), this, true)
-    private var mainViewModel: MainViewModel? = null
     private var articlesViewModel: ArticlesViewModel? = null
     private var searchViewModel: SearchViewModel? = null
 
     init {
         setListeners()
-        binding.headerSearchIcon.visibility = View.GONE
-        binding.headerXicon.visibility = View.GONE
-        binding.searchTextView.visibility = View.GONE
+        binding.headerSearchIcon.showView(false)
+        binding.headerXicon.showView(false)
+        binding.searchTextView.showView(false)
     }
 
     private fun setListeners() {
-        binding.backImg.setOnClickListener {
-            mainViewModel?.changeSearchStage(false)
-        }
 
         binding.searchEditText.addTextChangedListener { text ->
             if (text.isNullOrEmpty()) {
-                binding.headerXicon.visibility = View.GONE
-                binding.headerSearchIcon.visibility = View.GONE
+                binding.headerXicon.showView(false)
+                binding.headerSearchIcon.showView(false)
             } else {
-                binding.headerXicon.visibility = View.VISIBLE
+                binding.headerXicon.showView(true)
             }
         }
 
@@ -60,21 +56,17 @@ class SearchView @JvmOverloads constructor(
         }
     }
 
-     fun searchQuery(q: String) {
-        if (q.isNotEmpty()) {
-            searchViewModel?.addSearchQuery(q)
-            articlesViewModel?.fetchSearchArticles(q)
+     fun searchQuery(query: String) {
+        if (query.isNotEmpty()) {
+            searchViewModel?.addSearchQuery(query)
+            articlesViewModel?.fetchSearchArticles(query)
 
-            binding.searchEditText.visibility = View.GONE
-            binding.searchTextView.visibility = View.VISIBLE
-            binding.headerSearchIcon.visibility = View.VISIBLE
-            binding.headerXicon.visibility = View.GONE
-            binding.searchTextView.text = "\"$q\""
+            binding.searchEditText.showView(false)
+            binding.searchTextView.showView(true)
+            binding.headerSearchIcon.showView(true)
+            binding.headerXicon.showView(false)
+            binding.searchTextView.text = "\"$query\""
         }
-    }
-
-    fun setViewModel(viewModel: MainViewModel) {
-        this.mainViewModel = viewModel
     }
 
     fun setArticlesViewModel(viewModel: ArticlesViewModel) {
@@ -83,6 +75,12 @@ class SearchView @JvmOverloads constructor(
 
     fun setSearchViewModel(viewModel: SearchViewModel) {
         this.searchViewModel = viewModel
+    }
+
+    fun setBackAction(action: () -> Unit) {
+        binding.backImg.setOnClickListener {
+            action()
+        }
     }
 }
 

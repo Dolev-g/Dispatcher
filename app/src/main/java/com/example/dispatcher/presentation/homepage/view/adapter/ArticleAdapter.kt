@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.AdapterArticleItemBinding
-import com.example.dispatcher.presentation.homepage.model.ArticleView
+import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 
-class ArticleAdapter : ListAdapter<ArticleView, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
+class ArticleAdapter : ListAdapter<ArticleUiModel, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
     class ArticleViewHolder(private val binding: AdapterArticleItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: ArticleView) {
+        fun bind(article: ArticleUiModel) {
             binding.title.text = article.title
             binding.body.text = article.description
             binding.cardAuthor.text = article.author

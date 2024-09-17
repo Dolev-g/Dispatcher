@@ -1,11 +1,11 @@
 package com.example.dispatcher.presentation.homepage.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
@@ -13,7 +13,7 @@ import com.example.dispatcher.databinding.FragmentHomeBinding
 import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
-import com.example.dispatcher.presentation.main.MainViewModel
+import com.example.dispatcher.presentation.main.view.MainActivity
 
 class HomeFragment : Fragment() {
 
@@ -22,7 +22,6 @@ class HomeFragment : Fragment() {
 
     private val articlesViewModel: ArticlesViewModel by viewModels()
     private lateinit var articleAdapter: ArticleAdapter
-    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +34,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addAdapter()
+        initAdapter()
         observeToArticles()
-        binding.homeFilter.setViewModel(mainViewModel)
+
+        binding.homeFilter.setFilterIconAction {
+            (activity as? MainActivity)?.onFilterClick()
+        }
     }
 
     private fun observeToArticles() {
@@ -48,7 +50,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun addAdapter() {
+    private fun initAdapter() {
         val recyclerView = binding.recyclerViewHomeFragment
         articleAdapter = ArticleAdapter()
 

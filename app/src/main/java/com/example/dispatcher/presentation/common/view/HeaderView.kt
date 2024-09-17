@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.example.dispatcher.databinding.ViewHeaderBinding
-import com.example.dispatcher.presentation.main.MainViewModel
 
 class HeaderView @JvmOverloads constructor(
     context: Context,
@@ -14,22 +13,13 @@ class HeaderView @JvmOverloads constructor(
 ) : RelativeLayout(context, attrs, defStyleAttr) {
 
     private val binding: ViewHeaderBinding = ViewHeaderBinding.inflate(LayoutInflater.from(context), this, true)
-    private var mainViewModel: MainViewModel? = null
 
     init {
-        setListeners()
     }
 
-    private fun setListeners() {
-        binding.headerBellIcon.setOnClickListener {
+    fun setSearchIconAction(action: () -> Unit) {
+        binding.headerSearchIcon.setOnClickListener{
+            action()
         }
-
-        binding.headerSearchIcon.setOnClickListener {
-            mainViewModel?.changeSearchStage(true)
-        }
-    }
-
-    fun setViewModel(viewModel: MainViewModel) {
-        this.mainViewModel = viewModel
     }
 }

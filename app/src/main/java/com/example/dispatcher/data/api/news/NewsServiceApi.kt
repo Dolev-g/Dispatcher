@@ -15,7 +15,7 @@ interface NewsServiceApi {
 
     @GET(NewsApi.SEARCH_API)
     fun getSearchArticles(
-        @Query("q") q: String,
+        @Query("q") searchQuery: String,
         @Query("apiKey") apiKey: String
     ): Call<TopHeadlines>
 
