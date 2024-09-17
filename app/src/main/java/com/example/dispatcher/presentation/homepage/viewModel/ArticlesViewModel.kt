@@ -25,40 +25,14 @@ class ArticlesViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun fetchArticles() {
-        articlesRepository.fetchArticles().observeForever { topHeadlines ->
-            val articleNewList = mutableListOf<ArticleUiModel>()
-
-            topHeadlines?.articles?.forEach { article ->
-                val newArticle = ArticleUiModel(
-                    title = article.title,
-                    description = article.description,
-                    urlToImage = article.urlToImage,
-                    author = article.author,
-                    publishedAt = article.publishedAt
-                )
-                articleNewList.add(newArticle)
-            }
-
-            _articlesLiveData.postValue(articleNewList)
+        articlesRepository.fetchArticles().observeForever { articleUiModels ->
+            _articlesLiveData.postValue(articleUiModels)
         }
     }
 
-    fun fetchSearchArticles(q:String) {
-        articlesRepository.fetchSearchArticles(q).observeForever { topHeadlines ->
-            val articleNewList = mutableListOf<ArticleUiModel>()
-
-            topHeadlines?.articles?.forEach { article ->
-                val newArticle = ArticleUiModel(
-                    title = article.title,
-                    description = article.description,
-                    urlToImage = article.urlToImage,
-                    author = article.author,
-                    publishedAt = article.publishedAt
-                )
-                articleNewList.add(newArticle)
-            }
-
-            _searchArticlesLiveData.postValue(articleNewList)
+    fun fetchSearchArticles(query: String) {
+        articlesRepository.fetchSearchArticles(query).observeForever { articleUiModels ->
+            _searchArticlesLiveData.postValue(articleUiModels)
         }
     }
 
