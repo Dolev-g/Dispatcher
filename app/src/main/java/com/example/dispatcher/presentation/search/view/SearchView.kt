@@ -42,30 +42,10 @@ class SearchView @JvmOverloads constructor(
             }
         }
 
-        binding.searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
-                val query = binding.searchEditText.text.toString()
-                searchQuery(query)
-                return@OnEditorActionListener true
-            }
-            false
-        })
+
 
         binding.headerXicon.setOnClickListener {
             binding.searchEditText.text?.clear()
-        }
-    }
-
-     fun searchQuery(query: String) {
-        if (query.isNotEmpty()) {
-            searchViewModel?.addSearchQuery(query)
-            articlesViewModel?.fetchSearchArticles(query)
-
-            binding.searchEditText.showView(false)
-            binding.searchTextView.showView(true)
-            binding.headerSearchIcon.showView(true)
-            binding.headerXicon.showView(false)
-            binding.searchTextView.text = "\"$query\""
         }
     }
 
@@ -80,6 +60,28 @@ class SearchView @JvmOverloads constructor(
     fun setBackAction(action: () -> Unit) {
         binding.backImg.setOnClickListener {
             action()
+        }
+    }
+
+    fun searchAction(action: (String) -> Unit) {
+        binding.searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
+                val query = binding.searchEditText.text.toString()
+                action(query)
+                searchQueryViewsActions(query)
+                return@OnEditorActionListener true
+            }
+            false
+        })
+    }
+
+    private fun searchQueryViewsActions(query: String) {
+        if (query.isNotEmpty()) {
+            binding.searchEditText.showView(false)
+            binding.searchTextView.showView(true)
+            binding.headerSearchIcon.showView(true)
+            binding.headerXicon.showView(false)
+            binding.searchTextView.text = "\"$query\""
         }
     }
 }

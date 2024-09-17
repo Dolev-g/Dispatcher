@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dispatcher.R
+import com.example.dispatcher.common.utils.Utils
 import com.example.dispatcher.databinding.AdapterArticleItemBinding
 import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 
@@ -20,10 +21,7 @@ class ArticleAdapter : ListAdapter<ArticleUiModel, ArticleAdapter.ArticleViewHol
             binding.cardAuthor.text = article.author
             binding.date.text = article.publishedAt
 
-            Glide.with(binding.root.context)
-                .load(article.urlToImage)
-                 .placeholder(R.drawable.placeholder)
-                .into(binding.headerImage)
+            Utils.loadImage(binding.root.context, article.urlToImage, R.drawable.placeholder, binding.headerImage)
 
             binding.root.setOnClickListener {
                 Toast.makeText(binding.root.context, article.title, Toast.LENGTH_SHORT).show()

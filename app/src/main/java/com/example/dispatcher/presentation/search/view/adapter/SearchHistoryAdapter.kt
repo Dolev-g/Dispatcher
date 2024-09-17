@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatcher.databinding.ItemSearchHistoryBinding
+import com.example.dispatcher.presentation.search.view.SearchFragment
 import com.example.dispatcher.presentation.search.view.SearchView
 import com.example.dispatcher.presentation.search.viewModel.SearchViewModel
 
 class SearchHistoryAdapter(
     private val searchViewModel: SearchViewModel,
-    private val searchView: SearchView
+    private val searchFragment: SearchFragment
 ) : RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder>() {
 
     private var searchHistory: List<String> = emptyList()
@@ -21,12 +22,12 @@ class SearchHistoryAdapter(
             parent,
             false
         )
-        return SearchHistoryViewHolder(binding, searchViewModel, searchView)
+        return SearchHistoryViewHolder(binding, searchViewModel, searchFragment)
     }
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
         val searchQuery = searchHistory[position]
-        holder.bind(searchQuery)
+        holder.bind(searchQuery, position)
     }
 
     override fun getItemCount(): Int = searchHistory.size
@@ -39,19 +40,18 @@ class SearchHistoryAdapter(
     class SearchHistoryViewHolder(
         private val binding: ItemSearchHistoryBinding,
         private val searchViewModel: SearchViewModel,
-        private val searchView: SearchView
+        private val searchFragment: SearchFragment
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(searchQuery: String) {
+        fun bind(searchQuery: String, position: Int) {
             binding.searchQueryTextView.text = searchQuery
 
             binding.searchQueryTextView.setOnClickListener {
-                Log.d("SearchHistoryAdapter", "Search query clicked: $searchQuery") // Log the search query
-                searchView.searchQuery(searchQuery)
+                searchFragment.searchAction(searchQuery)
             }
 
             binding.deleteImg.setOnClickListener {
-                searchViewModel.deleteSearchQuery(searchQuery)
+                searchViewModel.deleteSearchQueryByIndex(position)
             }
         }
     }

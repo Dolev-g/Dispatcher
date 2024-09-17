@@ -1,6 +1,5 @@
 package com.example.dispatcher.presentation.search.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -93,8 +92,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun initSearchHistoryAdapter() {
         val recyclerView = binding.recyclerViewSearchHistory
-        val searchView = binding.searchView
-        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel, searchView)
+        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel, this)
 
         recyclerView.adapter = searchHistoryAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -112,6 +110,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.filter.setFilterIconAction {
             (activity as? MainActivity)?.onFilterClick()
         }
+
+        binding.searchView.searchAction { query ->
+            searchAction(query)
+        }
+    }
+
+    fun searchAction(query: String) {
+        searchViewModel.addSearchQuery(query)
+        articlesViewModel.fetchSearchArticles(query)
     }
 
     override fun onDestroyView() {

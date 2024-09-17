@@ -20,10 +20,12 @@ class SearchViewModel(application: Application)  : AndroidViewModel(application)
         _searchHistory.value = currentHistory
     }
 
-    fun deleteSearchQuery(query: String) {
+    fun deleteSearchQueryByIndex(index: Int) {
         val currentHistory = _searchHistory.value.orEmpty().toMutableList()
-        currentHistory.remove(query)
-        _searchHistory.value = currentHistory
+        if (index in currentHistory.indices) {
+            currentHistory.removeAt(index)
+            _searchHistory.value = currentHistory
+        }
     }
 
     fun clearSearchHistory() {
