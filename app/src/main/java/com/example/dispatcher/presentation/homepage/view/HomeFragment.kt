@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentHomeBinding
 import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
+import com.example.dispatcher.presentation.homepage.view.adapter.EnumArticleCardType
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.view.MainActivity
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter() {
         val recyclerView = binding.recyclerViewHomeFragment
-        articleAdapter = ArticleAdapter()
+        articleAdapter = ArticleAdapter(EnumArticleCardType.HOME)
 
         recyclerView.adapter = articleAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

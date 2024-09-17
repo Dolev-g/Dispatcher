@@ -12,6 +12,7 @@ import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.FragmentSearchBinding
 import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
+import com.example.dispatcher.presentation.homepage.view.adapter.EnumArticleCardType
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.view.MainActivity
@@ -81,7 +82,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun initAdapter() {
         val recyclerView = binding.recyclerViewSearch
-        articleAdapter = ArticleAdapter()
+        articleAdapter = ArticleAdapter(EnumArticleCardType.SEARCH)
 
         recyclerView.adapter = articleAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
