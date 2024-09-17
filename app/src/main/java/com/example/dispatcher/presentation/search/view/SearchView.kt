@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
@@ -64,16 +63,19 @@ class SearchView @JvmOverloads constructor(
     }
 
     fun searchAction(action: (String) -> Unit) {
-        binding.searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
+        binding.searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == 5 || actionId == EditorInfo.IME_ACTION_SEARCH || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
                 val query = binding.searchEditText.text.toString()
-                action(query)
-                searchQueryViewsActions(query)
+                if (query.isNotEmpty()) {
+                    action(query)
+                    searchQueryViewsActions(query)
+                }
                 return@OnEditorActionListener true
             }
             false
         })
     }
+
 
     private fun searchQueryViewsActions(query: String) {
         if (query.isNotEmpty()) {

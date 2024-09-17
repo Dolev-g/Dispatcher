@@ -83,5 +83,4 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.END)
         }
     }
-
 }
