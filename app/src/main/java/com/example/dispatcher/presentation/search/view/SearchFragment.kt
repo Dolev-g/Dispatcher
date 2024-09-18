@@ -1,6 +1,7 @@
 package com.example.dispatcher.presentation.search.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,9 +60,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setListeners()
     }
 
-    private fun observeToSearchArticles() {
+    private fun observeToSearchArticles(query: String) {
         viewLifecycleOwner.lifecycleScope.launch {
-            articlesViewModel.searchArticlesLiveData.collectLatest { pagingData ->
+            articlesViewModel.fetchSearchArticles(query).collectLatest { pagingData ->
+                Log.d("PagingLog", "articlesSearchFragment: $pagingData")
                 articleAdapter.submitData(pagingData)
             }
         }
@@ -118,7 +120,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     fun searchAction(query: String) {
         searchViewModel.addSearchQuery(query)
-        observeToSearchArticles()
+        observeToSearchArticles(query)
     }
 
     override fun onDestroyView() {

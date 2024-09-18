@@ -13,30 +13,8 @@ class ArticlesRepositoryImpl() : IArticleRepository {
 
     private val newsServiceApi = NetworkManager.createService(NewsServiceApi::class.java)
 
-    override fun getArticlesPagingSource(apiType: EnumApiType): PagingSource<Int, ArticleUiModel> {
-        return ArticlesPagingSource(this, apiType)
-    }
-
-    override suspend fun fetchArticles(): List<ArticleUiModel> {
-        return try {
-            val tempTopHeadlines = newsServiceApi.getTopHeadlines(NewsApi.COUNTRY_CODE, Secrets.API_KEY)
-            val topHeadlines = mapToUiModelList(tempTopHeadlines.articles)
-            topHeadlines
-        } catch (e: Exception) {
-            Log.e("TAG", "Error fetching top headlines: ${e.message}")
-            emptyList()
-        }
-    }
-
-    override suspend fun fetchSearchArticles(q: String): List<ArticleUiModel> {
-        return try {
-            val tempSearchHeadlines = newsServiceApi.getSearchArticles(q, Secrets.API_KEY)
-            val searchHeadlines = mapToUiModelList(tempSearchHeadlines.articles)
-            searchHeadlines
-        } catch (e: Exception) {
-            Log.e("TAG", "Error fetching search articles: ${e.message}")
-            emptyList()
-        }
+    override fun getArticlesPagingSource(apiType: EnumApiType, query: String): PagingSource<Int, ArticleUiModel> {
+        return ArticlesPagingSource(this, apiType, query)
     }
 
     override suspend fun fetchArticlesPaged(page: Int, pageSize:Int): List<ArticleUiModel> {
@@ -44,8 +22,9 @@ class ArticlesRepositoryImpl() : IArticleRepository {
         return mapToUiModelList(tempTopHeadlines.articles)
     }
 
-    override suspend fun fetchSearchArticlesPaged(page: Int, pageSize:Int): List<ArticleUiModel> {
-        val tempTopHeadlines = newsServiceApi.getSearchHeadlinesPaged(NewsApi.COUNTRY_CODE, Secrets.API_KEY, page, pageSize)
+    override suspend fun fetchSearchArticlesPaged(query: String, page: Int, pageSize:Int): List<ArticleUiModel> {
+        Log.d("PagingLog", "here")
+        val tempTopHeadlines = newsServiceApi.getSearchHeadlinesPaged(query, Secrets.API_KEY, page, pageSize)
         return mapToUiModelList(tempTopHeadlines.articles)
     }
 }

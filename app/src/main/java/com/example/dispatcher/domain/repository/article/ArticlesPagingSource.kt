@@ -7,19 +7,22 @@ import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 
 class ArticlesPagingSource(
     private val repository: IArticleRepository,
-    private val apiType: EnumApiType
+    private val apiType: EnumApiType,
+    private val query: String
 ) : PagingSource<Int, ArticleUiModel>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleUiModel> {
         return try {
-            val nextPageNumber = params.key ?: 1 // Start loading from page 1 if key is null
+            val nextPageNumber = params.key ?: 1
             Log.d("PagingLog", "Loading page: $nextPageNumber")
 
             val articles: List<ArticleUiModel> = if (apiType == EnumApiType.HEADLINES) {
                 repository.fetchArticlesPaged(nextPageNumber, 20)
             } else {
-                repository.fetchSearchArticlesPaged(nextPageNumber, 20)
+                repository.fetchSearchArticlesPaged(query, nextPageNumber, 20)
             }
+
+            Log.d("PagingLog", "articles: $articles")
 
             LoadResult.Page(
                 data = articles,
@@ -32,7 +35,6 @@ class ArticlesPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, ArticleUiModel>): Int? {
-        // Not needed for now, can be implemented if you have a way to track refresh keys
         return null
     }
 }

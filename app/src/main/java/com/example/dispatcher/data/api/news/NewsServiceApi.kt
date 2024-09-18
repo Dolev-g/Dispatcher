@@ -28,7 +28,7 @@ interface NewsServiceApi {
 
     @GET(NewsApi.SEARCH_API)
     suspend fun getSearchHeadlinesPaged(
-        @Query("country") country: String,
+        @Query("q") q: String,
         @Query("apiKey") apiKey: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
