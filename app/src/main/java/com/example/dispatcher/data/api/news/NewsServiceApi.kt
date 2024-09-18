@@ -12,4 +12,12 @@ interface NewsServiceApi {
         @Query("country") country: String,
         @Query("apiKey") apiKey: String
     ): Call<TopHeadlines>
+
+    @GET(NewsApi.SEARCH_API)
+    fun getSearchArticles(
+        @Query("q") searchQuery: String,
+        @Query("apiKey") apiKey: String
+    ): Call<TopHeadlines>
+
+
 }

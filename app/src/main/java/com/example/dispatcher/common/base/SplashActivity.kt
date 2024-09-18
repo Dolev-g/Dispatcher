@@ -7,6 +7,7 @@ import android.os.Handler
 import com.example.dispatcher.R
 import com.example.dispatcher.data.auth.FirebaseAuthManager
 import com.example.dispatcher.presentation.auth.view.AuthActivity
+import com.example.dispatcher.presentation.main.view.MainActivity
 
 class SplashActivity : ComponentActivity() {
 

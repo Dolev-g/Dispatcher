@@ -15,14 +15,11 @@ class HeaderView @JvmOverloads constructor(
     private val binding: ViewHeaderBinding = ViewHeaderBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        setListeners()
     }
 
-    fun setListeners() {
-        binding.headerBellIcon.setOnClickListener {
-        }
-
-        binding.headerSearchIcon.setOnClickListener {
+    fun setSearchIconAction(action: () -> Unit) {
+        binding.headerSearchIcon.setOnClickListener{
+            action()
         }
     }
 }

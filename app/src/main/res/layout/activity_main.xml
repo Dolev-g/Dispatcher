@@ -1,55 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Custom Header -->
-    <com.example.dispatcher.presentation.common.view.HeaderView
-        android:id="@+id/customHeaderView"
+    <!-- Main content -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_height="match_parent">
 
-    <!-- Fragment Container -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/customHeaderView"
-        android:layout_centerInParent="true" />
-
-    <!-- Tabs Layout -->
-    <LinearLayout
-        android:id="@+id/tabsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:id="@+id/tab_profile"
-            android:layout_width="0dp"
+        <!-- Custom Header -->
+        <com.example.dispatcher.presentation.common.view.HeaderView
+            android:id="@+id/customHeaderView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="16dp"
-            android:src="@drawable/selector_profile"/>
+            android:layout_alignParentTop="true" />
 
-        <ImageView
-            android:id="@+id/tab_home"
-            android:layout_width="0dp"
+        <!-- Fragment Container -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/customHeaderView"
+            android:layout_centerInParent="true" />
+
+        <!-- Tabs Layout -->
+        <LinearLayout
+            android:id="@+id/tabsLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="16dp"
-            android:src="@drawable/selector_home"/>
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/colorPrimary">
 
-        <ImageView
-            android:id="@+id/tab_favorites"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="16dp"
-            android:src="@drawable/selector_favorites"/>
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/tab_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:src="@drawable/selector_profile"/>
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/tab_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:src="@drawable/selector_home"/>
+
+            <ImageView
+                android:id="@+id/tab_favorites"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:src="@drawable/selector_favorites"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- Right Drawer (Filter Page) -->
+    <include
+        layout="@layout/filter_page"
+        android:layout_gravity="end"
+        android:layout_width="300dp"
+        android:layout_height="match_parent" />
+</androidx.drawerlayout.widget.DrawerLayout>

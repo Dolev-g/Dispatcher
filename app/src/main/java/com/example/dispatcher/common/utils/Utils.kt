@@ -1,6 +1,9 @@
 package com.example.dispatcher.common.utils
 
+import android.content.Context
 import android.util.Patterns
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 class Utils {
     companion object {
@@ -13,5 +16,13 @@ class Utils {
             val passwordPattern = Regex("^(?=.*[0-9])(?=.*[a-zA-Z]).{7,}$")
             return password.matches(passwordPattern)
         }
+
+        fun loadImage(context: Context, imageUrl: String?, placeholder: Int, imageView: ImageView) {
+            Glide.with(context)
+                .load(imageUrl)
+                .placeholder(placeholder)
+                .into(imageView)
+        }
     }
 }
+

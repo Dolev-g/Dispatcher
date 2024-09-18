@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,6 +12,20 @@
         android:text="Hello, this is a simple fav fragment!"
         android:textSize="18sp"
         android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/tempLogout"
+        style="@style/SecondaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Temp Log Out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </LinearLayout>
