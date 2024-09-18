@@ -1,6 +1,6 @@
 package com.example.dispatcher.presentation.homepage.model
 
-data class ArticleView(
+data class ArticleUiModel(
     val title: String,
     val description: String?,
     val urlToImage: String?,

@@ -29,6 +29,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tempLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+        }
     }
 
     override fun onDestroyView() {

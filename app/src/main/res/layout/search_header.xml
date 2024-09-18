@@ -33,6 +33,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <TextView
+        android:id="@+id/searchTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        style="@style/searchBoxResult"
+        app:layout_constraintStart_toEndOf="@id/backImg"
+        app:layout_constraintEnd_toStartOf="@id/headerSearchIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
 
     <ImageView
         android:id="@+id/headerSearchIcon"
@@ -44,4 +57,16 @@
         android:src="@drawable/search_bright"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/headerXicon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/delete_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

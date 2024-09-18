@@ -19,5 +19,13 @@
     <string name="RecentSearch">RECENT SEARCHES</string>
     <string name="clear">clear</string>
     <string name="no_matches_for_query">We couldn’t find any matches for your query</string>
+    <string name="filterTitle">FILTER</string>
+    <string name="searchIn">Search in</string>
+    <string name="sources">Sources</string>
+    <string name="language">Language</string>
+    <string name="dates">Dates</string>
+    <string name="placeHolder">PH</string>
+    <string name="btnFilter">VIEW RESULTS</string>
+    <string name="searchResultBtn">NAVIGATE TO DISPATCH</string>
 
 </resources>

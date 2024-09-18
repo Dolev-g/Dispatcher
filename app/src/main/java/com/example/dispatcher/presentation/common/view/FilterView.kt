@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.dispatcher.databinding.FilterBarBinding
 
-import com.example.dispatcher.presentation.main.MainViewModel
-
 class FilterView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -15,9 +13,14 @@ class FilterView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding: FilterBarBinding = FilterBarBinding.inflate(LayoutInflater.from(context), this, true)
-    private var mainViewModel: MainViewModel? = null
 
     init {
-
     }
+
+    fun setFilterIconAction(action: () -> Unit) {
+        binding.filterIcon.setOnClickListener{
+            action()
+        }
+    }
+
 }

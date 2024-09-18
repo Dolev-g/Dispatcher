@@ -16,19 +16,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:padding="10dp"
+        android:layout_marginEnd="16dp"
+        android:padding="10dp"
         android:layout_marginTop="16dp">
 
-        <TextView
-            android:id="@+id/textViewHomeFragment"
-            style="@style/recentSearch"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/wrappedLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/RecentSearch"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            >
+
+            <TextView
+                android:id="@+id/textViewHomeFragment"
+                style="@style/recentSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RecentSearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <Button
                 android:id="@+id/clearButton"
@@ -40,10 +47,20 @@
                 android:textColor="@color/sort_by"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSearchHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/wrappedLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,6 +72,7 @@
             android:id="@+id/filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -71,8 +89,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/notFoundLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        >
+
+        <com.example.dispatcher.presentation.common.view.FilterView
+            android:id="@+id/filterNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <ImageView
             android:id="@+id/noResultsImage"
@@ -82,7 +107,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
+
 
         <TextView
             android:id="@+id/noResultsText"
