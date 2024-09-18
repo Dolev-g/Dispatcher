@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.showView
@@ -18,6 +19,8 @@ import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.view.MainActivity
 import com.example.dispatcher.presentation.search.view.adapter.SearchHistoryAdapter
 import com.example.dispatcher.presentation.search.viewModel.SearchViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
@@ -53,27 +56,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         initSearchHistoryAdapter()
 
         observeSearchHistory()
-        observeToSearchArticles()
         setListeners()
     }
 
     private fun observeToSearchArticles() {
-        articlesViewModel.searchArticlesLiveData.observe(viewLifecycleOwner) { articles ->
-
-            if (articles != null) {
-                if (articles.isNotEmpty()) {
-                    articleAdapter.submitList(articles)
-                    binding.apply {
-                        resultsLayout.showView(true)
-                        recentSearchesLayout.showView(false)
-                    }
-                }
-                else {
-                    binding.apply {
-                        notFoundLayout.showView(true)
-                        recentSearchesLayout.showView(false)
-                    }
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            articlesViewModel.searchArticlesLiveData.collectLatest { pagingData ->
+                articleAdapter.submitData(pagingData)
             }
         }
     }
@@ -129,7 +118,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     fun searchAction(query: String) {
         searchViewModel.addSearchQuery(query)
-        articlesViewModel.fetchSearchArticles(query)
+        observeToSearchArticles()
     }
 
     override fun onDestroyView() {

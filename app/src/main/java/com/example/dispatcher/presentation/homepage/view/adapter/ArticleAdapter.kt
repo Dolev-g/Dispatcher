@@ -3,6 +3,7 @@ package com.example.dispatcher.presentation.homepage.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dispatcher.R
@@ -11,7 +12,7 @@ import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.AdapterArticleItemBinding
 import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 
-class ArticleAdapter(private val type: EnumArticleCardType) : ListAdapter<ArticleUiModel, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
+class ArticleAdapter(private val type: EnumArticleCardType) : PagingDataAdapter<ArticleUiModel, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
     inner class ArticleViewHolder(private val binding: AdapterArticleItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -43,6 +44,8 @@ class ArticleAdapter(private val type: EnumArticleCardType) : ListAdapter<Articl
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
-        holder.bind(article)
+        if (article != null) {
+            holder.bind(article)
+        }
     }
 }

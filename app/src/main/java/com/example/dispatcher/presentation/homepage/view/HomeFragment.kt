@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
 import com.example.dispatcher.databinding.FragmentHomeBinding
@@ -14,6 +16,8 @@ import com.example.dispatcher.presentation.homepage.view.adapter.EnumArticleCard
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.view.MainActivity
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -43,18 +47,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeToArticles() {
-        articlesViewModel.articlesLiveData.observe(viewLifecycleOwner) { articles ->
-            if (articles != null) {
-                articleAdapter.submitList(articles)
+        viewLifecycleOwner.lifecycleScope.launch {
+            articlesViewModel.articlesLiveData.collectLatest { pagingData ->
+                articleAdapter.submitData(pagingData)
             }
         }
     }
 
     private fun initAdapter() {
         binding.recyclerViewHomeFragment.let { recyclerView ->
-            articleAdapter = ArticleAdapter(EnumArticleCardType.HOME).also {
-                recyclerView.adapter = it
-            }
+            articleAdapter = ArticleAdapter(EnumArticleCardType.HOME)
+            recyclerView.adapter = articleAdapter
 
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_item_spacing)

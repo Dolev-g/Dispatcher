@@ -1,6 +1,7 @@
 package com.example.dispatcher.domain.repository.article
 
 import android.util.Log
+import androidx.paging.PagingSource
 import com.example.dispatcher.data.api.Secrets
 import com.example.dispatcher.data.api.news.NewsApi
 import com.example.dispatcher.data.api.news.NewsServiceApi
@@ -11,6 +12,10 @@ import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 class ArticlesRepositoryImpl() : IArticleRepository {
 
     private val newsServiceApi = NetworkManager.createService(NewsServiceApi::class.java)
+
+    override fun getArticlesPagingSource(apiType: EnumApiType): PagingSource<Int, ArticleUiModel> {
+        return ArticlesPagingSource(this, apiType)
+    }
 
     override suspend fun fetchArticles(): List<ArticleUiModel> {
         return try {
@@ -32,5 +37,15 @@ class ArticlesRepositoryImpl() : IArticleRepository {
             Log.e("TAG", "Error fetching search articles: ${e.message}")
             emptyList()
         }
+    }
+
+    override suspend fun fetchArticlesPaged(page: Int, pageSize:Int): List<ArticleUiModel> {
+        val tempTopHeadlines = newsServiceApi.getTopHeadlinesPaged(NewsApi.COUNTRY_CODE, Secrets.API_KEY, page, pageSize)
+        return mapToUiModelList(tempTopHeadlines.articles)
+    }
+
+    override suspend fun fetchSearchArticlesPaged(page: Int, pageSize:Int): List<ArticleUiModel> {
+        val tempTopHeadlines = newsServiceApi.getSearchHeadlinesPaged(NewsApi.COUNTRY_CODE, Secrets.API_KEY, page, pageSize)
+        return mapToUiModelList(tempTopHeadlines.articles)
     }
 }

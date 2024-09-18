@@ -116,6 +116,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     implementation(libs.androidx.fragment)
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0")
+    implementation ("androidx.paging:paging-runtime-ktx:3.0.0")
 
 
     implementation("com.google.firebase:firebase-crashlytics")
