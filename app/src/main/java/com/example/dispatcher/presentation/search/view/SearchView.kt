@@ -25,23 +25,24 @@ class SearchView @JvmOverloads constructor(
 
     init {
         setListeners()
-        binding.headerSearchIcon.showView(false)
-        binding.headerXicon.showView(false)
-        binding.searchTextView.showView(false)
+        binding.apply {
+            headerSearchIcon.showView(false)
+            headerXicon.showView(false)
+            searchTextView.showView(false)
+        }
     }
 
     private fun setListeners() {
-
         binding.searchEditText.addTextChangedListener { text ->
-            if (text.isNullOrEmpty()) {
-                binding.headerXicon.showView(false)
-                binding.headerSearchIcon.showView(false)
-            } else {
-                binding.headerXicon.showView(true)
+            binding.apply {
+                if (text.isNullOrEmpty()) {
+                    headerXicon.showView(false)
+                    headerSearchIcon.showView(false)
+                } else {
+                    headerXicon.showView(true)
+                }
             }
         }
-
-
 
         binding.headerXicon.setOnClickListener {
             binding.searchEditText.text?.clear()
@@ -76,14 +77,15 @@ class SearchView @JvmOverloads constructor(
         })
     }
 
-
     private fun searchQueryViewsActions(query: String) {
-        if (query.isNotEmpty()) {
-            binding.searchEditText.showView(false)
-            binding.searchTextView.showView(true)
-            binding.headerSearchIcon.showView(true)
-            binding.headerXicon.showView(false)
-            binding.searchTextView.text = "\"$query\""
+        binding.apply {
+            if (query.isNotEmpty()) {
+                searchEditText.showView(false)
+                searchTextView.showView(true)
+                headerSearchIcon.showView(true)
+                headerXicon.showView(false)
+                searchTextView.text = "\"$query\""
+            }
         }
     }
 }

@@ -115,6 +115,8 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     implementation(libs.androidx.fragment)
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0")
+
 
     implementation("com.google.firebase:firebase-crashlytics")
     implementation(libs.play.services.measurement.api)

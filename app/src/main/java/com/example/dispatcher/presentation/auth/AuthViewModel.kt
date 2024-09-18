@@ -4,8 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.dispatcher.data.auth.FirebaseAuthManager
 import com.example.dispatcher.domain.auth.EnumNavigate
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authManager = FirebaseAuthManager()
@@ -13,6 +18,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val stage = MutableLiveData<EnumNavigate>()
     private val authResult = MutableLiveData<AuthResult>()
     private val loader = MutableLiveData<Boolean>()
+    private var authJob: Job? = null
 
     init {
         stage.value = EnumNavigate.LOGIN
@@ -40,14 +46,36 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun createAccount(email: String, password: String) {
-        authManager.createAccount(email, password) { result ->
-            authResult.value = result
+        authJob?.cancel()
+        authJob = viewModelScope.launch {
+            try {
+                loader.value = true
+                val result = withContext(Dispatchers.IO) {
+                    authManager.createAccount(email, password)
+                }
+                authResult.value = result
+            } catch (e: Exception) {
+                authResult.value = AuthResult(success = false, error = e.localizedMessage)
+            } finally {
+                loader.value = false
+            }
         }
     }
 
     fun checkLogin(email: String, password: String) {
-        authManager.checkLogin(email, password) { result ->
-            authResult.value = result
+        authJob?.cancel()
+        authJob = viewModelScope.launch {
+            try {
+                loader.value = true
+                val result = withContext(Dispatchers.IO) {
+                    authManager.checkLogin(email, password)
+                }
+                authResult.value = result
+            } catch (e: Exception) {
+                authResult.value = AuthResult(success = false, error = e.localizedMessage)
+            } finally {
+                loader.value = false
+            }
         }
     }
 }

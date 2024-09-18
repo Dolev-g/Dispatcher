@@ -16,20 +16,21 @@ class ArticleAdapter(private val type: EnumArticleCardType) : ListAdapter<Articl
     inner class ArticleViewHolder(private val binding: AdapterArticleItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: ArticleUiModel) {
-            binding.title.text = article.title
-            binding.body.text = article.description
-            binding.cardAuthor.text = article.author
-            binding.date.text = article.publishedAt
+            binding.apply {
+                title.text = article.title
+                body.text = article.description
+                cardAuthor.text = article.author
+                date.text = article.publishedAt
+                root.setOnClickListener {
+                    Toast.makeText(binding.root.context, article.title, Toast.LENGTH_SHORT).show()
+                }
+            }
 
             if (type == EnumArticleCardType.HOME) {
                 binding.navButton.showView(false)
             }
 
             Utils.loadImage(binding.root.context, article.urlToImage, R.drawable.placeholder, binding.headerImage)
-
-            binding.root.setOnClickListener {
-                Toast.makeText(binding.root.context, article.title, Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
