@@ -40,40 +40,44 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun selectTab(selectedTabId: Int) {
-        binding.tabHome.isSelected = selectedTabId == R.id.tab_home
-        binding.tabFavorites.isSelected = selectedTabId == R.id.tab_favorites
-        binding.tabProfile.isSelected = selectedTabId == R.id.tab_profile
+        binding.apply {
+            tabHome.isSelected = selectedTabId == R.id.tab_home
+            tabFavorites.isSelected = selectedTabId == R.id.tab_favorites
+            tabProfile.isSelected = selectedTabId == R.id.tab_profile
+        }
     }
 
     private fun setListeners() {
-        binding.tabHome.setOnClickListener {
-            replaceFragment(HomeFragment())
-            selectTab(R.id.tab_home)
+        binding.apply {
+            tabHome.setOnClickListener {
+                replaceFragment(HomeFragment())
+                selectTab(R.id.tab_home)
+            }
+
+            tabFavorites.setOnClickListener {
+                replaceFragment(FavoritesFragment())
+                selectTab(R.id.tab_favorites)
+            }
+
+            tabProfile.setOnClickListener {
+                replaceFragment(ProfileFragment())
+                selectTab(R.id.tab_profile)
+            }
+
+            customHeaderView.setSearchIconAction {
+                replaceFragment(SearchFragment())
+                binding.customHeaderView.showView(false)
+                binding.tabsLayout.showView(false)
+            }
         }
-
-        binding.tabFavorites.setOnClickListener {
-            replaceFragment(FavoritesFragment())
-            selectTab(R.id.tab_favorites)
-        }
-
-        binding.tabProfile.setOnClickListener {
-            replaceFragment(ProfileFragment())
-            selectTab(R.id.tab_profile)
-        }
-
-        binding.customHeaderView.setSearchIconAction {
-            replaceFragment(SearchFragment())
-            binding.customHeaderView.showView(false)
-            binding.tabsLayout.showView(false)
-        }
-
-
     }
 
     fun onBackClick() {
         replaceFragment(HomeFragment())
-        binding.customHeaderView.showView(true)
-        binding.tabsLayout.showView(true)
+        binding.apply {
+            customHeaderView.showView(true)
+            tabsLayout.showView(true)
+        }
     }
 
      fun onFilterClick() {

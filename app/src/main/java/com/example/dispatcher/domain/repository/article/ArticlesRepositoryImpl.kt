@@ -1,6 +1,5 @@
 package com.example.dispatcher.domain.repository.article
 
-import android.content.Context
 import android.util.Log
 import com.example.dispatcher.data.api.Secrets
 import com.example.dispatcher.data.api.news.NewsApi
@@ -9,7 +8,7 @@ import com.example.dispatcher.data.network.NetworkManager
 import com.example.dispatcher.domain.repository.article.ArticleMapper.mapToUiModelList
 import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 
-class ArticlesRepositoryImpl(context: Context) : IArticleRepository {
+class ArticlesRepositoryImpl() : IArticleRepository {
 
     private val newsServiceApi = NetworkManager.createService(NewsServiceApi::class.java)
 

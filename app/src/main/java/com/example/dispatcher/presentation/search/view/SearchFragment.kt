@@ -42,10 +42,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.searchView.setArticlesViewModel(articlesViewModel)
-        binding.searchView.setSearchViewModel(searchViewModel)
-        binding.resultsLayout.showView(false)
-        binding.notFoundLayout.showView(false)
+        binding.apply {
+            searchView.setArticlesViewModel(articlesViewModel)
+            searchView.setSearchViewModel(searchViewModel)
+            resultsLayout.showView(false)
+            notFoundLayout.showView(false)
+        }
 
         initAdapter()
         initSearchHistoryAdapter()
@@ -61,12 +63,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             if (articles != null) {
                 if (articles.isNotEmpty()) {
                     articleAdapter.submitList(articles)
-                    binding.resultsLayout.showView(true)
-                    binding.recentSearchesLayout.showView(false)
+                    binding.apply {
+                        resultsLayout.showView(true)
+                        recentSearchesLayout.showView(false)
+                    }
                 }
                 else {
-                    binding.notFoundLayout.showView(true)
-                    binding.recentSearchesLayout.showView(false)
+                    binding.apply {
+                        notFoundLayout.showView(true)
+                        recentSearchesLayout.showView(false)
+                    }
                 }
             }
         }
@@ -81,39 +87,43 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun initAdapter() {
-        val recyclerView = binding.recyclerViewSearch
-        articleAdapter = ArticleAdapter(EnumArticleCardType.SEARCH)
+        binding.recyclerViewSearch.let { recyclerView ->
+            articleAdapter = ArticleAdapter(EnumArticleCardType.SEARCH).also {
+                recyclerView.adapter = it
+            }
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_item_spacing)
+            recyclerView.addItemDecoration(TopSpacingItemDecoration(spacingInPixels))
+        }
 
-        recyclerView.adapter = articleAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_item_spacing)
-        recyclerView.addItemDecoration(TopSpacingItemDecoration(spacingInPixels))
     }
 
     private fun initSearchHistoryAdapter() {
-        val recyclerView = binding.recyclerViewSearchHistory
-        searchHistoryAdapter = SearchHistoryAdapter(searchViewModel, this)
-
-        recyclerView.adapter = searchHistoryAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewSearchHistory.let { recyclerView ->
+            searchHistoryAdapter = SearchHistoryAdapter(searchViewModel, this).also {
+                recyclerView.adapter = it
+            }
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun setListeners() {
-        binding.clearButton.setOnClickListener {
-            searchViewModel.clearSearchHistory()
-        }
+        binding.apply {
+            clearButton.setOnClickListener {
+                searchViewModel.clearSearchHistory()
+            }
 
-        binding.searchView.setBackAction {
-            (activity as? MainActivity)?.onBackClick()
-        }
+            searchView.setBackAction {
+                (context as? MainActivity)?.onBackClick()
+            }
 
-        binding.filter.setFilterIconAction {
-            (activity as? MainActivity)?.onFilterClick()
-        }
+            filter.setFilterIconAction {
+                (context as? MainActivity)?.onFilterClick()
+            }
 
-        binding.searchView.searchAction { query ->
-            searchAction(query)
+            searchView.searchAction { query ->
+                searchAction(query)
+            }
         }
     }
 

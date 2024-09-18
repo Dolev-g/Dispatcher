@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.dispatcher.data.auth.FirebaseAuthManager
 import com.example.dispatcher.domain.auth.EnumNavigate
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authManager = FirebaseAuthManager()
@@ -48,7 +50,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         authJob = viewModelScope.launch {
             try {
                 loader.value = true
-                val result = authManager.createAccount(email, password)
+                val result = withContext(Dispatchers.IO) {
+                    authManager.createAccount(email, password)
+                }
                 authResult.value = result
             } catch (e: Exception) {
                 authResult.value = AuthResult(success = false, error = e.localizedMessage)
@@ -63,7 +67,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         authJob = viewModelScope.launch {
             try {
                 loader.value = true
-                val result = authManager.checkLogin(email, password)
+                val result = withContext(Dispatchers.IO) {
+                    authManager.checkLogin(email, password)
+                }
                 authResult.value = result
             } catch (e: Exception) {
                 authResult.value = AuthResult(success = false, error = e.localizedMessage)

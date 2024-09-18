@@ -1,6 +1,8 @@
 package com.example.dispatcher.presentation.homepage.viewModel
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +11,9 @@ import com.example.dispatcher.domain.repository.article.ArticleRepoFactory
 import com.example.dispatcher.domain.repository.article.EnumArticleType
 import com.example.dispatcher.domain.repository.article.IArticleRepository
 import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -28,15 +32,28 @@ class ArticlesViewModel(application: Application) : AndroidViewModel(application
 
     private fun fetchArticles() {
         viewModelScope.launch {
-            val topHeadlines = articlesRepository.fetchArticles()
-            _articlesLiveData.postValue(topHeadlines)
+            try {
+                val topHeadlines = withContext(Dispatchers.IO) {
+                    articlesRepository.fetchArticles()
+                }
+                _articlesLiveData.postValue(topHeadlines)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching articles: ${e.message}")
+            }
         }
     }
 
     fun fetchSearchArticles(query: String) {
         viewModelScope.launch {
-            val topHeadlines = articlesRepository.fetchSearchArticles(query)
-            _searchArticlesLiveData.postValue(topHeadlines)
+            try {
+                val topHeadlines = withContext(Dispatchers.IO) {
+                    articlesRepository.fetchSearchArticles(query)
+                }
+                _searchArticlesLiveData.postValue(topHeadlines)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching search articles: ${e.message}")
+            }
         }
     }
+
 }

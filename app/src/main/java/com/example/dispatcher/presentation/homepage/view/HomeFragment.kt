@@ -1,6 +1,5 @@
 package com.example.dispatcher.presentation.homepage.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,15 +51,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        val recyclerView = binding.recyclerViewHomeFragment
-        articleAdapter = ArticleAdapter(EnumArticleCardType.HOME)
+        binding.recyclerViewHomeFragment.let { recyclerView ->
+            articleAdapter = ArticleAdapter(EnumArticleCardType.HOME).also {
+                recyclerView.adapter = it
+            }
 
-        recyclerView.adapter = articleAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_item_spacing)
-        recyclerView.addItemDecoration(TopSpacingItemDecoration(spacingInPixels))
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_item_spacing)
+            recyclerView.addItemDecoration(TopSpacingItemDecoration(spacingInPixels))
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
