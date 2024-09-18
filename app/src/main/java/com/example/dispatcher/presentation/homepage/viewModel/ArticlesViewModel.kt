@@ -8,19 +8,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.dispatcher.domain.repository.article.ArticleRepoFactory
 import com.example.dispatcher.domain.repository.article.EnumArticleType
 import com.example.dispatcher.domain.repository.article.IArticleRepository
-import com.example.dispatcher.presentation.homepage.model.ArticleView
+import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 import kotlinx.coroutines.launch
 
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
-    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
+    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.SERVER)
 
-    private val _articlesLiveData = MutableLiveData<List<ArticleView>>()
-    val articlesLiveData: LiveData<List<ArticleView>> get() = _articlesLiveData
+    private val _articlesLiveData = MutableLiveData<List<ArticleUiModel>>()
+    val articlesLiveData: LiveData<List<ArticleUiModel>> get() = _articlesLiveData
 
-    private val _searchArticlesLiveData = MutableLiveData<List<ArticleView>>()
-    val searchArticlesLiveData: LiveData<List<ArticleView>> get() = _searchArticlesLiveData
+    private val _searchArticlesLiveData = MutableLiveData<List<ArticleUiModel>>()
+    val searchArticlesLiveData: LiveData<List<ArticleUiModel>> get() = _searchArticlesLiveData
 
     init {
         fetchArticles()
@@ -29,36 +29,14 @@ class ArticlesViewModel(application: Application) : AndroidViewModel(application
     private fun fetchArticles() {
         viewModelScope.launch {
             val topHeadlines = articlesRepository.fetchArticles()
-
-            val articleNewList = topHeadlines?.articles?.map { article ->
-                ArticleView(
-                    title = article.title,
-                    description = article.description ?: "No description available",
-                    urlToImage = article.urlToImage ?: "default_image_url",
-                    author = article.author ?: "unknown author",
-                    publishedAt = article.publishedAt ?: "unknown date"
-                )
-            } ?: emptyList()
-
-            _articlesLiveData.postValue(articleNewList)
+            _articlesLiveData.postValue(topHeadlines)
         }
     }
 
-    fun fetchSearchArticles(q: String) {
+    fun fetchSearchArticles(query: String) {
         viewModelScope.launch {
-            val topHeadlines = articlesRepository.fetchSearchArticles(q)
-
-            val articleNewList = topHeadlines?.articles?.map { article ->
-                ArticleView(
-                    title = article.title,
-                    description = article.description ?: "No description available",
-                    urlToImage = article.urlToImage ?: "default_image_url",
-                    author = article.author ?: "unknown author",
-                    publishedAt = article.publishedAt ?: "unknown date"
-                )
-            } ?: emptyList()
-
-            _searchArticlesLiveData.postValue(articleNewList)
+            val topHeadlines = articlesRepository.fetchSearchArticles(query)
+            _searchArticlesLiveData.postValue(topHeadlines)
         }
     }
 }

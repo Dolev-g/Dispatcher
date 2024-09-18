@@ -5,30 +5,33 @@ import android.util.Log
 import com.example.dispatcher.data.api.Secrets
 import com.example.dispatcher.data.api.news.NewsApi
 import com.example.dispatcher.data.api.news.NewsServiceApi
-import com.example.dispatcher.data.model.news.TopHeadlines
 import com.example.dispatcher.data.network.NetworkManager
+import com.example.dispatcher.domain.repository.article.ArticleMapper.mapToUiModelList
+import com.example.dispatcher.presentation.homepage.model.ArticleUiModel
 
 class ArticlesRepositoryImpl(context: Context) : IArticleRepository {
 
     private val newsServiceApi = NetworkManager.createService(NewsServiceApi::class.java)
 
-    override suspend fun fetchArticles(): TopHeadlines? {
+    override suspend fun fetchArticles(): List<ArticleUiModel> {
         return try {
-            val topHeadlines = newsServiceApi.getTopHeadlines(NewsApi.COUNTRY_CODE, Secrets.API_KEY)
+            val tempTopHeadlines = newsServiceApi.getTopHeadlines(NewsApi.COUNTRY_CODE, Secrets.API_KEY)
+            val topHeadlines = mapToUiModelList(tempTopHeadlines.articles)
             topHeadlines
         } catch (e: Exception) {
             Log.e("TAG", "Error fetching top headlines: ${e.message}")
-            null
+            emptyList()
         }
     }
 
-    override suspend fun fetchSearchArticles(q: String): TopHeadlines? {
+    override suspend fun fetchSearchArticles(q: String): List<ArticleUiModel> {
         return try {
-            val searchHeadlines = newsServiceApi.getSearchArticles(q, Secrets.API_KEY)
+            val tempSearchHeadlines = newsServiceApi.getSearchArticles(q, Secrets.API_KEY)
+            val searchHeadlines = mapToUiModelList(tempSearchHeadlines.articles)
             searchHeadlines
         } catch (e: Exception) {
             Log.e("TAG", "Error fetching search articles: ${e.message}")
-            null
+            emptyList()
         }
     }
 }
