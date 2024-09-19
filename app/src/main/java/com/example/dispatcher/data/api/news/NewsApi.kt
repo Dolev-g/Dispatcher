@@ -5,4 +5,5 @@ object NewsApi {
     const val TOP_HEADLINES_ENDPOINT = "top-headlines"
     const val SEARCH_API = "everything"
     const val COUNTRY_CODE = "us"
+    const val SOURCES_ENDPOINT = "top-headlines/sources"
 }

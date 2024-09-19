@@ -1,6 +1,7 @@
 package com.example.dispatcher.data.api.news
 
 import com.example.dispatcher.data.model.news.TopHeadlines
+import com.example.dispatcher.data.model.sources.SourcesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -33,4 +34,10 @@ interface NewsServiceApi {
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
     ): TopHeadlines
+
+    @GET(NewsApi.SOURCES_ENDPOINT)
+    suspend fun getSources(
+        @Query("apiKey") apiKey: String
+    ): SourcesResponse
+
 }
