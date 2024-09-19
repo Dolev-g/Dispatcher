@@ -62,9 +62,9 @@
     </RelativeLayout>
 
     <!-- Right Drawer (Filter Page) -->
-    <include
-        layout="@layout/filter_page"
-        android:layout_gravity="end"
+    <FrameLayout
+        android:id="@+id/right_drawer"
         android:layout_width="300dp"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="end"/>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -10,6 +10,7 @@ import com.example.dispatcher.common.utils.FirebaseCrashlyticsManager
 import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.ActivityMainBinding
 import com.example.dispatcher.presentation.favorites.view.FavoritesFragment
+import com.example.dispatcher.presentation.filter.view.FilterWrapperFragment
 import com.example.dispatcher.presentation.homepage.view.HomeFragment
 import com.example.dispatcher.presentation.profile.view.ProfileFragment
 import com.example.dispatcher.presentation.search.view.SearchFragment
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         setListeners()
         replaceFragment(HomeFragment())
         selectTab(R.id.tab_home)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.right_drawer, FilterWrapperFragment())
+            .commit()
     }
 
     private fun replaceFragment(fragment: Fragment) {
