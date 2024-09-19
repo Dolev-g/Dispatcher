@@ -30,6 +30,20 @@ class FilterPageFragment : Fragment(R.layout.filter_page) {
         super.onViewCreated(view, savedInstanceState)
 
         setListeners()
+        observeSelectedFilterSearchIN()
+        observeSelectedFilterSource()
+    }
+
+    private fun observeSelectedFilterSearchIN() {
+        filterViewModel.searchInChoosen.observe(viewLifecycleOwner) { str ->
+            binding.searchInSelected.text = str
+        }
+    }
+
+    private fun observeSelectedFilterSource() {
+        filterViewModel.sourcesChoosen.observe(viewLifecycleOwner) { str ->
+            binding.sourcesSelected.text = str
+        }
     }
 
     private fun setListeners() {

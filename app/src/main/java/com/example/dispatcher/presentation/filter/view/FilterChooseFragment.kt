@@ -39,7 +39,7 @@ class FilterChooseFragment(private val filterType: EnumFilter) : Fragment(R.layo
     }
 
     private fun setupRecyclerView() {
-        sourcesAdapter = SourcesAdapter(emptyList())
+        sourcesAdapter = SourcesAdapter(emptyList(), filterViewModel, filterType)
         binding.sourcesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = sourcesAdapter
@@ -49,7 +49,7 @@ class FilterChooseFragment(private val filterType: EnumFilter) : Fragment(R.layo
     private fun observeToSources() {
         filterViewModel.sources.observe(viewLifecycleOwner) { sources ->
             sources?.let {
-                sourcesAdapter = SourcesAdapter(it)
+                sourcesAdapter = SourcesAdapter(it, filterViewModel, filterType)
                 binding.sourcesRecyclerView.adapter = sourcesAdapter
             }
         }

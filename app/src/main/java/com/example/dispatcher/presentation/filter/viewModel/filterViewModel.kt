@@ -19,6 +19,12 @@ class FilterViewModel(application: Application) : AndroidViewModel(application) 
     private val _sources = MutableLiveData<List<String>>()
     val sources: LiveData<List<String>> get() = _sources
 
+    private val _searchInChoosen = MutableLiveData<String>()
+    val searchInChoosen: LiveData<String> get() = _searchInChoosen
+
+    private val _sourcesChoosen = MutableLiveData<String>()
+    val sourcesChoosen: LiveData<String> get() = _sourcesChoosen
+
     private var filterType : EnumFilter = EnumFilter.SEARCHIN
 
     init {
@@ -51,6 +57,14 @@ class FilterViewModel(application: Application) : AndroidViewModel(application) 
             val sourceNames = listOf("everything", "top-headlines")
                 _sources.postValue(sourceNames)
         }
+    }
+
+    fun setSearchInChoosen(value: String) {
+        _searchInChoosen.value = value
+    }
+
+    fun setSourcesChoosen(value: String) {
+        _sourcesChoosen.value = value
     }
 
 }
