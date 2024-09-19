@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
-    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.SERVER)
+    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
 
     val articlesLiveData = Pager(PagingConfig(pageSize = 20)) {
         articlesRepository.getArticlesPagingSource(EnumApiType.HEADLINES,"")

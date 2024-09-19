@@ -1,5 +1,6 @@
 package com.example.dispatcher.presentation.homepage.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -17,6 +18,9 @@ class ArticleAdapter(private val type: EnumArticleCardType) : PagingDataAdapter<
     inner class ArticleViewHolder(private val binding: AdapterArticleItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: ArticleUiModel) {
+            var title1 =article.title
+            Log.d("PagingLogAdapter", "articlesSearchFragment: $title1")
+
             binding.apply {
                 title.text = article.title
                 body.text = article.description
@@ -45,7 +49,11 @@ class ArticleAdapter(private val type: EnumArticleCardType) : PagingDataAdapter<
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
         if (article != null) {
+            Log.d("PagingLogAdapter", "Binding article at position $position: ${article.title}")
             holder.bind(article)
+        } else {
+            Log.d("PagingLogAdapter", "No article at position $position")
         }
     }
+
 }

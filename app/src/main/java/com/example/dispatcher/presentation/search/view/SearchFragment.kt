@@ -63,7 +63,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun observeToSearchArticles(query: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             articlesViewModel.fetchSearchArticles(query).collectLatest { pagingData ->
-                Log.d("PagingLog", "articlesSearchFragment: $pagingData")
                 articleAdapter.submitData(pagingData)
             }
         }

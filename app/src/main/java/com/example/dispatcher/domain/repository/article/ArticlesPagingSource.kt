@@ -22,7 +22,7 @@ class ArticlesPagingSource(
                 repository.fetchSearchArticlesPaged(query, nextPageNumber, 20)
             }
 
-            Log.d("PagingLog", "articles: $articles")
+            Log.d("PagingLogSource", "articles: $articles")
 
             LoadResult.Page(
                 data = articles,
