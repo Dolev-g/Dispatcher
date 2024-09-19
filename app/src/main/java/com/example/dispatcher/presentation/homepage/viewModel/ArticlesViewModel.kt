@@ -18,14 +18,19 @@ import kotlinx.coroutines.flow.Flow
 class ArticlesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepoFactory = ArticleRepoFactory(application)
-    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.MOCK)
+    private val articlesRepository: IArticleRepository = articleRepoFactory.createArticleRepo(EnumArticleType.SERVER)
 
-    val articlesLiveData = Pager(PagingConfig(pageSize = 20)) {
-        articlesRepository.getArticlesPagingSource(EnumApiType.HEADLINES,"")
-    }.flow.cachedIn(viewModelScope)
+    fun fetchArticles(): Flow<PagingData<ArticleUiModel>> {
+        return Pager(PagingConfig(pageSize = 5)) {
+            articlesRepository.getArticlesPagingSource(EnumApiType.HEADLINES,"")
+        }.flow.cachedIn(viewModelScope)
+    }
+//    val articlesLiveData = Pager(PagingConfig(pageSize = 5)) {
+//        articlesRepository.getArticlesPagingSource(EnumApiType.HEADLINES,"")
+//    }.flow.cachedIn(viewModelScope)
 
     fun fetchSearchArticles(query: String): Flow<PagingData<ArticleUiModel>> {
-        return Pager(PagingConfig(pageSize = 20)) {
+        return Pager(PagingConfig(pageSize = 5)) {
             articlesRepository.getArticlesPagingSource(EnumApiType.SEARCH, query)
         }.flow.cachedIn(viewModelScope)
     }

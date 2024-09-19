@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
+import okhttp3.logging.HttpLoggingInterceptor
 
 object NetworkManager {
 
@@ -12,9 +13,11 @@ object NetworkManager {
 
     private val retrofit: Retrofit by lazy {
 
-        val gson = GsonBuilder().setLenient().create()
-        val client = OkHttpClient.Builder().build()
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
+        val gson = GsonBuilder().setLenient().create()
+        val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
         Retrofit.Builder()
             .baseUrl(baseUrl)

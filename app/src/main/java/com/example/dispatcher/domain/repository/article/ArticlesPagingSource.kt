@@ -17,9 +17,9 @@ class ArticlesPagingSource(
             Log.d("PagingLog", "Loading page: $nextPageNumber")
 
             val articles: List<ArticleUiModel> = if (apiType == EnumApiType.HEADLINES) {
-                repository.fetchArticlesPaged(nextPageNumber, 20)
+                repository.fetchArticlesPaged(nextPageNumber, 5)
             } else {
-                repository.fetchSearchArticlesPaged(query, nextPageNumber, 20)
+                repository.fetchSearchArticlesPaged(query, nextPageNumber, 5)
             }
 
             Log.d("PagingLogSource", "articles: $articles")

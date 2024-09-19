@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
 
     private fun observeToArticles() {
         viewLifecycleOwner.lifecycleScope.launch {
-            articlesViewModel.articlesLiveData.collectLatest { pagingData ->
+            articlesViewModel.fetchArticles().collectLatest { pagingData ->
                 articleAdapter.submitData(pagingData)
             }
         }
