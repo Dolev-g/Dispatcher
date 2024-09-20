@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentDisplay, fragment)
@@ -91,5 +91,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             drawerLayout.openDrawer(GravityCompat.END)
         }
+    }
+
+    fun closeDrawer() {
+        drawerLayout.closeDrawer(GravityCompat.END)
     }
 }

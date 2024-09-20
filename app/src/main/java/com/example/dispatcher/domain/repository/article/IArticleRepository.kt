@@ -6,6 +6,6 @@ import androidx.paging.PagingSource
 interface IArticleRepository {
     fun getArticlesPagingSource(apiType: EnumApiType, query: String): PagingSource<Int, ArticleUiModel>
     suspend fun fetchArticlesPaged(page: Int, pageSize:Int): List<ArticleUiModel>
-    suspend fun fetchSearchArticlesPaged(query: String, page: Int, pageSize:Int): List<ArticleUiModel>
+    suspend fun fetchSearchArticles(query: String): List<ArticleUiModel>
 }
 

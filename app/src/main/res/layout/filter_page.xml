@@ -135,7 +135,7 @@
         >
 
         <Button
-            android:id="@+id/myButton"
+            android:id="@+id/filterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btnFilter"

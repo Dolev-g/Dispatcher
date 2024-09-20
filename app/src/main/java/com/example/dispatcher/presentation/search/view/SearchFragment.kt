@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dispatcher.R
 import com.example.dispatcher.common.utils.showView
 import com.example.dispatcher.databinding.FragmentSearchBinding
+import com.example.dispatcher.presentation.filter.viewModel.FilterViewModel
 import com.example.dispatcher.presentation.homepage.view.adapter.ArticleAdapter
 import com.example.dispatcher.presentation.homepage.view.adapter.EnumArticleCardType
+import com.example.dispatcher.presentation.homepage.view.adapter.SearchArticleAdapter
 import com.example.dispatcher.presentation.homepage.view.adapter.TopSpacingItemDecoration
 import com.example.dispatcher.presentation.homepage.viewModel.ArticlesViewModel
 import com.example.dispatcher.presentation.main.view.MainActivity
@@ -31,7 +33,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val articlesViewModel: ArticlesViewModel by viewModels()
     private val searchViewModel: SearchViewModel by activityViewModels()
 
-    private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var articleAdapter: SearchArticleAdapter
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
 
 
@@ -55,15 +57,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         initAdapter()
         initSearchHistoryAdapter()
-
+        observeToSearchArticles()
         observeSearchHistory()
         setListeners()
     }
 
-    private fun observeToSearchArticles(query: String) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            articlesViewModel.fetchSearchArticles(query).collectLatest { pagingData ->
-                articleAdapter.submitData(pagingData)
+    private fun observeToSearchArticles() {
+        articlesViewModel.searchArticlesLiveData.observe(viewLifecycleOwner) { articles ->
+
+            if (articles != null) {
+                if (articles.isNotEmpty()) {
+                    articleAdapter.submitList(articles)
+                    binding.apply {
+                        resultsLayout.showView(true)
+                        recentSearchesLayout.showView(false)
+                    }
+                }
+                else {
+                    binding.apply {
+                        notFoundLayout.showView(true)
+                        recentSearchesLayout.showView(false)
+                    }
+                }
             }
         }
     }
@@ -78,7 +93,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun initAdapter() {
         binding.recyclerViewSearch.let { recyclerView ->
-            articleAdapter = ArticleAdapter(EnumArticleCardType.SEARCH).also {
+            articleAdapter = SearchArticleAdapter(EnumArticleCardType.SEARCH).also {
                 recyclerView.adapter = it
             }
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -119,7 +134,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     fun searchAction(query: String) {
         searchViewModel.addSearchQuery(query)
-        observeToSearchArticles(query)
+        articlesViewModel.fetchSearchArticles(query)
     }
 
     override fun onDestroyView() {

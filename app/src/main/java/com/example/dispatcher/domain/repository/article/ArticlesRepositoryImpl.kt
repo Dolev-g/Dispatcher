@@ -22,9 +22,14 @@ class ArticlesRepositoryImpl() : IArticleRepository {
         return mapToUiModelList(tempTopHeadlines.articles)
     }
 
-    override suspend fun fetchSearchArticlesPaged(query: String, page: Int, pageSize:Int): List<ArticleUiModel> {
-        Log.d("PagingLog", "here")
-        val tempTopHeadlines = newsServiceApi.getSearchHeadlinesPaged(query, Secrets.API_KEY, page, pageSize)
-        return mapToUiModelList(tempTopHeadlines.articles)
+    override suspend fun fetchSearchArticles(query: String): List<ArticleUiModel> {
+        return try {
+            val tempSearchHeadlines = newsServiceApi.getSearchArticles(query, Secrets.API_KEY)
+            val searchHeadlines = mapToUiModelList(tempSearchHeadlines.articles)
+            searchHeadlines
+        } catch (e: Exception) {
+            Log.e("TAG", "Error fetching search articles: ${e.message}")
+            emptyList()
+        }
     }
 }

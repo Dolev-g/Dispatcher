@@ -21,7 +21,7 @@ class MockArticlesPagingSource(
             val filteredArticles = if (apiType == EnumApiType.HEADLINES) {
                 repository.fetchArticlesPaged(page,20)
             } else {
-                repository.fetchSearchArticlesPaged(query, page, 20)
+                repository.fetchArticlesPaged(page,20)
             }
 
             val start = (page - 1) * pageSize

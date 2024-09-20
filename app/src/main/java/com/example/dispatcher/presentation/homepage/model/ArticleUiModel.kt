@@ -6,6 +6,7 @@ data class ArticleUiModel(
     val urlToImage: String?,
     val author: String?,
     val publishedAt: String?,
+    val source: String
 )
 
 

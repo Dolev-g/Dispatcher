@@ -33,15 +33,11 @@ class MockArticleRepository(context: Context) : IArticleRepository {
         return mapToUiModelList(pagedArticles)
     }
 
-    override suspend fun fetchSearchArticlesPaged(query: String, page: Int, pageSize: Int): List<ArticleUiModel> {
+    override suspend fun fetchSearchArticles(query: String): List<ArticleUiModel> {
         val filteredArticles = mockTopHeadlines.articles.filter { article ->
             article.title.contains(query, ignoreCase = true) || article.description.contains(query, ignoreCase = true)
         }
 
-        val start = (page - 1) * pageSize
-        val end = minOf(start + pageSize, filteredArticles.size)
-        val pagedArticles = filteredArticles.subList(start, end)
-
-        return mapToUiModelList(pagedArticles)
+        return mapToUiModelList(filteredArticles)
     }
 }
