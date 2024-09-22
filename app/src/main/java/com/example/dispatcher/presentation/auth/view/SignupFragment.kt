@@ -55,29 +55,35 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             val reEnterPassword = binding.reEnterTextPassword.text.toString()
 
             if (password != reEnterPassword) {
-                Toast.makeText(requireContext(), "Password doesn't match re-Enter password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                if (!Utils.isValidEmail(email)) {
-                    binding.emailTextInputLayout.error = getString(R.string.invalidEmail)
-                }
-
-                if(password.length < 7) {
-                    binding.passwordTextInputLayout.error = getString(R.string.shortPassword)
-                }
-
-                if (!Utils.isValidPassword(password)) {
-                    binding.passwordTextInputLayout.error = getString(R.string.invalidPassword)
-                }
-
-                authViewModel.changeLoader(true)
-                authViewModel.createAccount(email, password)
-            } else {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            if (!Utils.isValidEmail(email)) {
+                binding.emailTextInputLayout.error = getString(R.string.invalidEmail)
+                return@setOnClickListener
+            }
+
+            if (password.length < 7) {
+                binding.passwordTextInputLayout.error = getString(R.string.shortPassword)
+                return@setOnClickListener
+            }
+
+            if (!Utils.isValidPassword(password)) {
+                binding.passwordTextInputLayout.error = getString(R.string.invalidPassword)
+                return@setOnClickListener
+            }
+
+            authViewModel.changeLoader(true)
+            authViewModel.createAccount(email, password)
         }
     }
+
 
     private fun setLoginButton () {
         binding.loginButton.setOnClickListener {

@@ -49,7 +49,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.apply {
             searchView.setArticlesViewModel(articlesViewModel)
             searchView.setSearchViewModel(searchViewModel)
-            resultsLayout.showView(false)
+//            resultsLayout.showView(false)
             notFoundLayout.showView(false)
         }
 

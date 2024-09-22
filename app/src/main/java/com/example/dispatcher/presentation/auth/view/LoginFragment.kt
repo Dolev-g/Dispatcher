@@ -65,14 +65,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 if (!Utils.isValidEmail(email)) {
                     binding.emailTextInputLayout.error = getString(R.string.invalidEmail)
+                    return@setOnClickListener
                 }
 
                 if(password.length < 7) {
                     binding.passwordTextInputLayout.error = getString(R.string.shortPassword)
+                    return@setOnClickListener
                 }
 
                 if (!Utils.isValidPassword(password)) {
                     binding.passwordTextInputLayout.error = getString(R.string.invalidPassword)
+                    return@setOnClickListener
                 }
 
                 authViewModel.changeLoader(true)
